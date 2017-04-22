@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.RechargeDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.Recharge" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bank_card_id" property="bankCardId" jdbcType="INTEGER" />
+    <result column="recharge_amount" property="rechargeAmount" jdbcType="DECIMAL" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="add_ip" property="addIp" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="repay_amount" property="repayAmount" jdbcType="DECIMAL" />
+    <result column="bank_card_num" property="bankCardNum" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, bank_card_id, recharge_amount, user_id, add_ip, version, repay_amount, bank_card_num, 
+      type
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.RechargeQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from recharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,bank_card_id,recharge_amount,user_id,add_ip,version,repay_amount,bank_card_num,type
+    from recharge
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from recharge
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.RechargeQuery" >
+    delete from recharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.Recharge" >
+    insert into recharge (id, bank_card_id, recharge_amount, 
+      user_id, add_ip, version, 
+      repay_amount, bank_card_num, type
+      )
+    values (#{id,jdbcType=INTEGER}, #{bankCardId,jdbcType=INTEGER}, #{rechargeAmount,jdbcType=DECIMAL}, 
+      #{userId,jdbcType=INTEGER}, #{addIp,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{repayAmount,jdbcType=DECIMAL}, #{bankCardNum,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.Recharge" >
+    insert into recharge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bankCardId != null" >
+        bank_card_id,
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="addIp != null" >
+        add_ip,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="repayAmount != null" >
+        repay_amount,
+      </if>
+      <if test="bankCardNum != null" >
+        bank_card_num,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bankCardId != null" >
+        #{bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeAmount != null" >
+        #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addIp != null" >
+        #{addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="repayAmount != null" >
+        #{repayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCardNum != null" >
+        #{bankCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.RechargeQuery" resultType="java.lang.Integer" >
+    select count(*) from recharge
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update recharge
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankCardId != null" >
+        bank_card_id = #{record.bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rechargeAmount != null" >
+        recharge_amount = #{record.rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.addIp != null" >
+        add_ip = #{record.addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayAmount != null" >
+        repay_amount = #{record.repayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bankCardNum != null" >
+        bank_card_num = #{record.bankCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update recharge
+    set id = #{record.id,jdbcType=INTEGER},
+      bank_card_id = #{record.bankCardId,jdbcType=INTEGER},
+      recharge_amount = #{record.rechargeAmount,jdbcType=DECIMAL},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      add_ip = #{record.addIp,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=VARCHAR},
+      repay_amount = #{record.repayAmount,jdbcType=DECIMAL},
+      bank_card_num = #{record.bankCardNum,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.Recharge" >
+    update recharge
+    <set >
+      <if test="bankCardId != null" >
+        bank_card_id = #{bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addIp != null" >
+        add_ip = #{addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="repayAmount != null" >
+        repay_amount = #{repayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCardNum != null" >
+        bank_card_num = #{bankCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.Recharge" >
+    update recharge
+    set bank_card_id = #{bankCardId,jdbcType=INTEGER},
+      recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      user_id = #{userId,jdbcType=INTEGER},
+      add_ip = #{addIp,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      repay_amount = #{repayAmount,jdbcType=DECIMAL},
+      bank_card_num = #{bankCardNum,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.TendLogDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.TendLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="borrow_nid" property="borrowNid" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="operate_describe" property="operateDescribe" jdbcType="VARCHAR" />
+    <result column="add_ip" property="addIp" jdbcType="VARCHAR" />
+    <result column="amout" property="amout" jdbcType="DECIMAL" />
+    <result column="rate" property="rate" jdbcType="REAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="nid" property="nid" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, borrow_nid, user_id, operate_time, operate_describe, add_ip, amout, rate, status, 
+      nid, type
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.TendLogQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tend_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,borrow_nid,user_id,operate_time,operate_describe,add_ip,amout,rate,status,nid,type
+    from tend_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tend_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.TendLogQuery" >
+    delete from tend_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.TendLog" >
+    insert into tend_log (id, borrow_nid, user_id, 
+      operate_time, operate_describe, add_ip, 
+      amout, rate, status, nid, 
+      type)
+    values (#{id,jdbcType=INTEGER}, #{borrowNid,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{operateTime,jdbcType=TIMESTAMP}, #{operateDescribe,jdbcType=VARCHAR}, #{addIp,jdbcType=VARCHAR}, 
+      #{amout,jdbcType=DECIMAL}, #{rate,jdbcType=REAL}, #{status,jdbcType=INTEGER}, #{nid,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.TendLog" >
+    insert into tend_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="operateTime != null" >
+        operate_time,
+      </if>
+      <if test="operateDescribe != null" >
+        operate_describe,
+      </if>
+      <if test="addIp != null" >
+        add_ip,
+      </if>
+      <if test="amout != null" >
+        amout,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="nid != null" >
+        nid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="borrowNid != null" >
+        #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateDescribe != null" >
+        #{operateDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="addIp != null" >
+        #{addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="amout != null" >
+        #{amout,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=REAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="nid != null" >
+        #{nid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.TendLogQuery" resultType="java.lang.Integer" >
+    select count(*) from tend_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tend_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowNid != null" >
+        borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operateTime != null" >
+        operate_time = #{record.operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operateDescribe != null" >
+        operate_describe = #{record.operateDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addIp != null" >
+        add_ip = #{record.addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amout != null" >
+        amout = #{record.amout,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rate != null" >
+        rate = #{record.rate,jdbcType=REAL},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.nid != null" >
+        nid = #{record.nid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tend_log
+    set id = #{record.id,jdbcType=INTEGER},
+      borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      operate_time = #{record.operateTime,jdbcType=TIMESTAMP},
+      operate_describe = #{record.operateDescribe,jdbcType=VARCHAR},
+      add_ip = #{record.addIp,jdbcType=VARCHAR},
+      amout = #{record.amout,jdbcType=DECIMAL},
+      rate = #{record.rate,jdbcType=REAL},
+      status = #{record.status,jdbcType=INTEGER},
+      nid = #{record.nid,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.TendLog" >
+    update tend_log
+    <set >
+      <if test="borrowNid != null" >
+        borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="operateTime != null" >
+        operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateDescribe != null" >
+        operate_describe = #{operateDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="addIp != null" >
+        add_ip = #{addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="amout != null" >
+        amout = #{amout,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=REAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="nid != null" >
+        nid = #{nid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.TendLog" >
+    update tend_log
+    set borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      operate_describe = #{operateDescribe,jdbcType=VARCHAR},
+      add_ip = #{addIp,jdbcType=VARCHAR},
+      amout = #{amout,jdbcType=DECIMAL},
+      rate = #{rate,jdbcType=REAL},
+      status = #{status,jdbcType=INTEGER},
+      nid = #{nid,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

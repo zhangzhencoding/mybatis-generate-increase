@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.LoanOverdueInfoDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.LoanOverdueInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="data_date" property="dataDate" jdbcType="VARCHAR" />
+    <result column="overdue_id" property="overdueId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="borrow_nid" property="borrowNid" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="borrow_recover_id" property="borrowRecoverId" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="overdue_interest" property="overdueInterest" jdbcType="DECIMAL" />
+    <result column="overdue_captial" property="overdueCaptial" jdbcType="DECIMAL" />
+    <result column="overdue_amount" property="overdueAmount" jdbcType="DECIMAL" />
+    <result column="overdue_ser_fee" property="overdueSerFee" jdbcType="DECIMAL" />
+    <result column="overdue_per_fee" property="overduePerFee" jdbcType="DECIMAL" />
+    <result column="overdue_fee" property="overdueFee" jdbcType="DECIMAL" />
+    <result column="overdue_amount_total" property="overdueAmountTotal" jdbcType="DECIMAL" />
+    <result column="overdue_date" property="overdueDate" jdbcType="VARCHAR" />
+    <result column="overdue_date_num" property="overdueDateNum" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, data_date, overdue_id, user_id, product_id, borrow_nid, period, borrow_recover_id, 
+      version, overdue_interest, overdue_captial, overdue_amount, overdue_ser_fee, overdue_per_fee, 
+      overdue_fee, overdue_amount_total, overdue_date, overdue_date_num, add_time
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.LoanOverdueInfoQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from loan_overdue_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,data_date,overdue_id,user_id,product_id,borrow_nid,period,borrow_recover_id,version,overdue_interest,overdue_captial,overdue_amount,overdue_ser_fee,overdue_per_fee,overdue_fee,overdue_amount_total,overdue_date,overdue_date_num,add_time
+    from loan_overdue_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_overdue_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.LoanOverdueInfoQuery" >
+    delete from loan_overdue_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.LoanOverdueInfo" >
+    insert into loan_overdue_info (id, data_date, overdue_id, 
+      user_id, product_id, borrow_nid, 
+      period, borrow_recover_id, version, 
+      overdue_interest, overdue_captial, overdue_amount, 
+      overdue_ser_fee, overdue_per_fee, overdue_fee, 
+      overdue_amount_total, overdue_date, overdue_date_num, 
+      add_time)
+    values (#{id,jdbcType=INTEGER}, #{dataDate,jdbcType=VARCHAR}, #{overdueId,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{productId,jdbcType=VARCHAR}, #{borrowNid,jdbcType=VARCHAR}, 
+      #{period,jdbcType=INTEGER}, #{borrowRecoverId,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, 
+      #{overdueInterest,jdbcType=DECIMAL}, #{overdueCaptial,jdbcType=DECIMAL}, #{overdueAmount,jdbcType=DECIMAL}, 
+      #{overdueSerFee,jdbcType=DECIMAL}, #{overduePerFee,jdbcType=DECIMAL}, #{overdueFee,jdbcType=DECIMAL}, 
+      #{overdueAmountTotal,jdbcType=DECIMAL}, #{overdueDate,jdbcType=VARCHAR}, #{overdueDateNum,jdbcType=INTEGER}, 
+      #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.LoanOverdueInfo" >
+    insert into loan_overdue_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dataDate != null" >
+        data_date,
+      </if>
+      <if test="overdueId != null" >
+        overdue_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="borrowRecoverId != null" >
+        borrow_recover_id,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="overdueInterest != null" >
+        overdue_interest,
+      </if>
+      <if test="overdueCaptial != null" >
+        overdue_captial,
+      </if>
+      <if test="overdueAmount != null" >
+        overdue_amount,
+      </if>
+      <if test="overdueSerFee != null" >
+        overdue_ser_fee,
+      </if>
+      <if test="overduePerFee != null" >
+        overdue_per_fee,
+      </if>
+      <if test="overdueFee != null" >
+        overdue_fee,
+      </if>
+      <if test="overdueAmountTotal != null" >
+        overdue_amount_total,
+      </if>
+      <if test="overdueDate != null" >
+        overdue_date,
+      </if>
+      <if test="overdueDateNum != null" >
+        overdue_date_num,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dataDate != null" >
+        #{dataDate,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueId != null" >
+        #{overdueId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null" >
+        #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="borrowRecoverId != null" >
+        #{borrowRecoverId,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="overdueInterest != null" >
+        #{overdueInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueCaptial != null" >
+        #{overdueCaptial,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueAmount != null" >
+        #{overdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueSerFee != null" >
+        #{overdueSerFee,jdbcType=DECIMAL},
+      </if>
+      <if test="overduePerFee != null" >
+        #{overduePerFee,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueFee != null" >
+        #{overdueFee,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueAmountTotal != null" >
+        #{overdueAmountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueDate != null" >
+        #{overdueDate,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueDateNum != null" >
+        #{overdueDateNum,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.LoanOverdueInfoQuery" resultType="java.lang.Integer" >
+    select count(*) from loan_overdue_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update loan_overdue_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dataDate != null" >
+        data_date = #{record.dataDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overdueId != null" >
+        overdue_id = #{record.overdueId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowNid != null" >
+        borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.period != null" >
+        period = #{record.period,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowRecoverId != null" >
+        borrow_recover_id = #{record.borrowRecoverId,jdbcType=INTEGER},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.overdueInterest != null" >
+        overdue_interest = #{record.overdueInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overdueCaptial != null" >
+        overdue_captial = #{record.overdueCaptial,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overdueAmount != null" >
+        overdue_amount = #{record.overdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overdueSerFee != null" >
+        overdue_ser_fee = #{record.overdueSerFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overduePerFee != null" >
+        overdue_per_fee = #{record.overduePerFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overdueFee != null" >
+        overdue_fee = #{record.overdueFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overdueAmountTotal != null" >
+        overdue_amount_total = #{record.overdueAmountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overdueDate != null" >
+        overdue_date = #{record.overdueDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overdueDateNum != null" >
+        overdue_date_num = #{record.overdueDateNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update loan_overdue_info
+    set id = #{record.id,jdbcType=INTEGER},
+      data_date = #{record.dataDate,jdbcType=VARCHAR},
+      overdue_id = #{record.overdueId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=VARCHAR},
+      borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      period = #{record.period,jdbcType=INTEGER},
+      borrow_recover_id = #{record.borrowRecoverId,jdbcType=INTEGER},
+      version = #{record.version,jdbcType=INTEGER},
+      overdue_interest = #{record.overdueInterest,jdbcType=DECIMAL},
+      overdue_captial = #{record.overdueCaptial,jdbcType=DECIMAL},
+      overdue_amount = #{record.overdueAmount,jdbcType=DECIMAL},
+      overdue_ser_fee = #{record.overdueSerFee,jdbcType=DECIMAL},
+      overdue_per_fee = #{record.overduePerFee,jdbcType=DECIMAL},
+      overdue_fee = #{record.overdueFee,jdbcType=DECIMAL},
+      overdue_amount_total = #{record.overdueAmountTotal,jdbcType=DECIMAL},
+      overdue_date = #{record.overdueDate,jdbcType=VARCHAR},
+      overdue_date_num = #{record.overdueDateNum,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.LoanOverdueInfo" >
+    update loan_overdue_info
+    <set >
+      <if test="dataDate != null" >
+        data_date = #{dataDate,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueId != null" >
+        overdue_id = #{overdueId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="borrowRecoverId != null" >
+        borrow_recover_id = #{borrowRecoverId,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="overdueInterest != null" >
+        overdue_interest = #{overdueInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueCaptial != null" >
+        overdue_captial = #{overdueCaptial,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueAmount != null" >
+        overdue_amount = #{overdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueSerFee != null" >
+        overdue_ser_fee = #{overdueSerFee,jdbcType=DECIMAL},
+      </if>
+      <if test="overduePerFee != null" >
+        overdue_per_fee = #{overduePerFee,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueFee != null" >
+        overdue_fee = #{overdueFee,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueAmountTotal != null" >
+        overdue_amount_total = #{overdueAmountTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueDate != null" >
+        overdue_date = #{overdueDate,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueDateNum != null" >
+        overdue_date_num = #{overdueDateNum,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.LoanOverdueInfo" >
+    update loan_overdue_info
+    set data_date = #{dataDate,jdbcType=VARCHAR},
+      overdue_id = #{overdueId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=VARCHAR},
+      borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      period = #{period,jdbcType=INTEGER},
+      borrow_recover_id = #{borrowRecoverId,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      overdue_interest = #{overdueInterest,jdbcType=DECIMAL},
+      overdue_captial = #{overdueCaptial,jdbcType=DECIMAL},
+      overdue_amount = #{overdueAmount,jdbcType=DECIMAL},
+      overdue_ser_fee = #{overdueSerFee,jdbcType=DECIMAL},
+      overdue_per_fee = #{overduePerFee,jdbcType=DECIMAL},
+      overdue_fee = #{overdueFee,jdbcType=DECIMAL},
+      overdue_amount_total = #{overdueAmountTotal,jdbcType=DECIMAL},
+      overdue_date = #{overdueDate,jdbcType=VARCHAR},
+      overdue_date_num = #{overdueDateNum,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

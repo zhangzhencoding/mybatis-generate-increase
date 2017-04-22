@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.UserAccountLogDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.UserAccountLog" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="operation_amount" property="operationAmount" jdbcType="DECIMAL" />
+    <result column="operation_before" property="operationBefore" jdbcType="DECIMAL" />
+    <result column="operation_after" property="operationAfter" jdbcType="DECIMAL" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="borrow_nid" property="borrowNid" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="operate_use" property="operateUse" jdbcType="INTEGER" />
+    <result column="nid" property="nid" jdbcType="VARCHAR" />
+    <result column="frozen_amount_before" property="frozenAmountBefore" jdbcType="DECIMAL" />
+    <result column="frozen_amount_after" property="frozenAmountAfter" jdbcType="DECIMAL" />
+    <result column="frozen_amount_yes" property="frozenAmountYes" jdbcType="DECIMAL" />
+    <result column="available_credit_yes" property="availableCreditYes" jdbcType="DECIMAL" />
+    <result column="available_credit_before" property="availableCreditBefore" jdbcType="DECIMAL" />
+    <result column="available_credit_after" property="availableCreditAfter" jdbcType="DECIMAL" />
+    <result column="cash_wait_yes" property="cashWaitYes" jdbcType="DECIMAL" />
+    <result column="cash_wait_before" property="cashWaitBefore" jdbcType="DECIMAL" />
+    <result column="cash_wait_after" property="cashWaitAfter" jdbcType="DECIMAL" />
+    <result column="profit_yes" property="profitYes" jdbcType="DECIMAL" />
+    <result column="profit_before" property="profitBefore" jdbcType="DECIMAL" />
+    <result column="profit_after" property="profitAfter" jdbcType="DECIMAL" />
+    <result column="demand_amount_yes" property="demandAmountYes" jdbcType="DECIMAL" />
+    <result column="demand_amount_before" property="demandAmountBefore" jdbcType="DECIMAL" />
+    <result column="demand_amount_after" property="demandAmountAfter" jdbcType="DECIMAL" />
+    <result column="interest_amount_yes" property="interestAmountYes" jdbcType="DECIMAL" />
+    <result column="interest_amount_before" property="interestAmountBefore" jdbcType="DECIMAL" />
+    <result column="interest_amount_after" property="interestAmountAfter" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      Id, operation_amount, operation_before, operation_after, user_id, borrow_nid, remark, 
+      type, add_time, version, operate_use, nid, frozen_amount_before, frozen_amount_after, 
+      frozen_amount_yes, available_credit_yes, available_credit_before, available_credit_after, 
+      cash_wait_yes, cash_wait_before, cash_wait_after, profit_yes, profit_before, profit_after, 
+      demand_amount_yes, demand_amount_before, demand_amount_after, interest_amount_yes, 
+      interest_amount_before, interest_amount_after
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.UserAccountLogQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_account_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    Id,operation_amount,operation_before,operation_after,user_id,borrow_nid,remark,type,add_time,version,operate_use,nid,frozen_amount_before,frozen_amount_after,frozen_amount_yes,available_credit_yes,available_credit_before,available_credit_after,cash_wait_yes,cash_wait_before,cash_wait_after,profit_yes,profit_before,profit_after,demand_amount_yes,demand_amount_before,demand_amount_after,interest_amount_yes,interest_amount_before,interest_amount_after
+    from user_account_log
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_account_log
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.UserAccountLogQuery" >
+    delete from user_account_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.UserAccountLog" >
+    insert into user_account_log (Id, operation_amount, operation_before, 
+      operation_after, user_id, borrow_nid, 
+      remark, type, add_time, 
+      version, operate_use, nid, 
+      frozen_amount_before, frozen_amount_after, 
+      frozen_amount_yes, available_credit_yes, available_credit_before, 
+      available_credit_after, cash_wait_yes, cash_wait_before, 
+      cash_wait_after, profit_yes, profit_before, 
+      profit_after, demand_amount_yes, demand_amount_before, 
+      demand_amount_after, interest_amount_yes, interest_amount_before, 
+      interest_amount_after)
+    values (#{id,jdbcType=INTEGER}, #{operationAmount,jdbcType=DECIMAL}, #{operationBefore,jdbcType=DECIMAL}, 
+      #{operationAfter,jdbcType=DECIMAL}, #{userId,jdbcType=INTEGER}, #{borrowNid,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=INTEGER}, #{operateUse,jdbcType=INTEGER}, #{nid,jdbcType=VARCHAR}, 
+      #{frozenAmountBefore,jdbcType=DECIMAL}, #{frozenAmountAfter,jdbcType=DECIMAL}, 
+      #{frozenAmountYes,jdbcType=DECIMAL}, #{availableCreditYes,jdbcType=DECIMAL}, #{availableCreditBefore,jdbcType=DECIMAL}, 
+      #{availableCreditAfter,jdbcType=DECIMAL}, #{cashWaitYes,jdbcType=DECIMAL}, #{cashWaitBefore,jdbcType=DECIMAL}, 
+      #{cashWaitAfter,jdbcType=DECIMAL}, #{profitYes,jdbcType=DECIMAL}, #{profitBefore,jdbcType=DECIMAL}, 
+      #{profitAfter,jdbcType=DECIMAL}, #{demandAmountYes,jdbcType=DECIMAL}, #{demandAmountBefore,jdbcType=DECIMAL}, 
+      #{demandAmountAfter,jdbcType=DECIMAL}, #{interestAmountYes,jdbcType=DECIMAL}, #{interestAmountBefore,jdbcType=DECIMAL}, 
+      #{interestAmountAfter,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.UserAccountLog" >
+    insert into user_account_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="operationAmount != null" >
+        operation_amount,
+      </if>
+      <if test="operationBefore != null" >
+        operation_before,
+      </if>
+      <if test="operationAfter != null" >
+        operation_after,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="operateUse != null" >
+        operate_use,
+      </if>
+      <if test="nid != null" >
+        nid,
+      </if>
+      <if test="frozenAmountBefore != null" >
+        frozen_amount_before,
+      </if>
+      <if test="frozenAmountAfter != null" >
+        frozen_amount_after,
+      </if>
+      <if test="frozenAmountYes != null" >
+        frozen_amount_yes,
+      </if>
+      <if test="availableCreditYes != null" >
+        available_credit_yes,
+      </if>
+      <if test="availableCreditBefore != null" >
+        available_credit_before,
+      </if>
+      <if test="availableCreditAfter != null" >
+        available_credit_after,
+      </if>
+      <if test="cashWaitYes != null" >
+        cash_wait_yes,
+      </if>
+      <if test="cashWaitBefore != null" >
+        cash_wait_before,
+      </if>
+      <if test="cashWaitAfter != null" >
+        cash_wait_after,
+      </if>
+      <if test="profitYes != null" >
+        profit_yes,
+      </if>
+      <if test="profitBefore != null" >
+        profit_before,
+      </if>
+      <if test="profitAfter != null" >
+        profit_after,
+      </if>
+      <if test="demandAmountYes != null" >
+        demand_amount_yes,
+      </if>
+      <if test="demandAmountBefore != null" >
+        demand_amount_before,
+      </if>
+      <if test="demandAmountAfter != null" >
+        demand_amount_after,
+      </if>
+      <if test="interestAmountYes != null" >
+        interest_amount_yes,
+      </if>
+      <if test="interestAmountBefore != null" >
+        interest_amount_before,
+      </if>
+      <if test="interestAmountAfter != null" >
+        interest_amount_after,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="operationAmount != null" >
+        #{operationAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="operationBefore != null" >
+        #{operationBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="operationAfter != null" >
+        #{operationAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowNid != null" >
+        #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="operateUse != null" >
+        #{operateUse,jdbcType=INTEGER},
+      </if>
+      <if test="nid != null" >
+        #{nid,jdbcType=VARCHAR},
+      </if>
+      <if test="frozenAmountBefore != null" >
+        #{frozenAmountBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenAmountAfter != null" >
+        #{frozenAmountAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenAmountYes != null" >
+        #{frozenAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="availableCreditYes != null" >
+        #{availableCreditYes,jdbcType=DECIMAL},
+      </if>
+      <if test="availableCreditBefore != null" >
+        #{availableCreditBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="availableCreditAfter != null" >
+        #{availableCreditAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="cashWaitYes != null" >
+        #{cashWaitYes,jdbcType=DECIMAL},
+      </if>
+      <if test="cashWaitBefore != null" >
+        #{cashWaitBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="cashWaitAfter != null" >
+        #{cashWaitAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="profitYes != null" >
+        #{profitYes,jdbcType=DECIMAL},
+      </if>
+      <if test="profitBefore != null" >
+        #{profitBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="profitAfter != null" >
+        #{profitAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="demandAmountYes != null" >
+        #{demandAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="demandAmountBefore != null" >
+        #{demandAmountBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="demandAmountAfter != null" >
+        #{demandAmountAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="interestAmountYes != null" >
+        #{interestAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="interestAmountBefore != null" >
+        #{interestAmountBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="interestAmountAfter != null" >
+        #{interestAmountAfter,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.UserAccountLogQuery" resultType="java.lang.Integer" >
+    select count(*) from user_account_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_account_log
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.operationAmount != null" >
+        operation_amount = #{record.operationAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.operationBefore != null" >
+        operation_before = #{record.operationBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.operationAfter != null" >
+        operation_after = #{record.operationAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowNid != null" >
+        borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.operateUse != null" >
+        operate_use = #{record.operateUse,jdbcType=INTEGER},
+      </if>
+      <if test="record.nid != null" >
+        nid = #{record.nid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frozenAmountBefore != null" >
+        frozen_amount_before = #{record.frozenAmountBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.frozenAmountAfter != null" >
+        frozen_amount_after = #{record.frozenAmountAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="record.frozenAmountYes != null" >
+        frozen_amount_yes = #{record.frozenAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.availableCreditYes != null" >
+        available_credit_yes = #{record.availableCreditYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.availableCreditBefore != null" >
+        available_credit_before = #{record.availableCreditBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.availableCreditAfter != null" >
+        available_credit_after = #{record.availableCreditAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cashWaitYes != null" >
+        cash_wait_yes = #{record.cashWaitYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cashWaitBefore != null" >
+        cash_wait_before = #{record.cashWaitBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cashWaitAfter != null" >
+        cash_wait_after = #{record.cashWaitAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="record.profitYes != null" >
+        profit_yes = #{record.profitYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.profitBefore != null" >
+        profit_before = #{record.profitBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.profitAfter != null" >
+        profit_after = #{record.profitAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="record.demandAmountYes != null" >
+        demand_amount_yes = #{record.demandAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.demandAmountBefore != null" >
+        demand_amount_before = #{record.demandAmountBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.demandAmountAfter != null" >
+        demand_amount_after = #{record.demandAmountAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interestAmountYes != null" >
+        interest_amount_yes = #{record.interestAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interestAmountBefore != null" >
+        interest_amount_before = #{record.interestAmountBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interestAmountAfter != null" >
+        interest_amount_after = #{record.interestAmountAfter,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_account_log
+    set Id = #{record.id,jdbcType=INTEGER},
+      operation_amount = #{record.operationAmount,jdbcType=DECIMAL},
+      operation_before = #{record.operationBefore,jdbcType=DECIMAL},
+      operation_after = #{record.operationAfter,jdbcType=DECIMAL},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=INTEGER},
+      operate_use = #{record.operateUse,jdbcType=INTEGER},
+      nid = #{record.nid,jdbcType=VARCHAR},
+      frozen_amount_before = #{record.frozenAmountBefore,jdbcType=DECIMAL},
+      frozen_amount_after = #{record.frozenAmountAfter,jdbcType=DECIMAL},
+      frozen_amount_yes = #{record.frozenAmountYes,jdbcType=DECIMAL},
+      available_credit_yes = #{record.availableCreditYes,jdbcType=DECIMAL},
+      available_credit_before = #{record.availableCreditBefore,jdbcType=DECIMAL},
+      available_credit_after = #{record.availableCreditAfter,jdbcType=DECIMAL},
+      cash_wait_yes = #{record.cashWaitYes,jdbcType=DECIMAL},
+      cash_wait_before = #{record.cashWaitBefore,jdbcType=DECIMAL},
+      cash_wait_after = #{record.cashWaitAfter,jdbcType=DECIMAL},
+      profit_yes = #{record.profitYes,jdbcType=DECIMAL},
+      profit_before = #{record.profitBefore,jdbcType=DECIMAL},
+      profit_after = #{record.profitAfter,jdbcType=DECIMAL},
+      demand_amount_yes = #{record.demandAmountYes,jdbcType=DECIMAL},
+      demand_amount_before = #{record.demandAmountBefore,jdbcType=DECIMAL},
+      demand_amount_after = #{record.demandAmountAfter,jdbcType=DECIMAL},
+      interest_amount_yes = #{record.interestAmountYes,jdbcType=DECIMAL},
+      interest_amount_before = #{record.interestAmountBefore,jdbcType=DECIMAL},
+      interest_amount_after = #{record.interestAmountAfter,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.UserAccountLog" >
+    update user_account_log
+    <set >
+      <if test="operationAmount != null" >
+        operation_amount = #{operationAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="operationBefore != null" >
+        operation_before = #{operationBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="operationAfter != null" >
+        operation_after = #{operationAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="operateUse != null" >
+        operate_use = #{operateUse,jdbcType=INTEGER},
+      </if>
+      <if test="nid != null" >
+        nid = #{nid,jdbcType=VARCHAR},
+      </if>
+      <if test="frozenAmountBefore != null" >
+        frozen_amount_before = #{frozenAmountBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenAmountAfter != null" >
+        frozen_amount_after = #{frozenAmountAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenAmountYes != null" >
+        frozen_amount_yes = #{frozenAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="availableCreditYes != null" >
+        available_credit_yes = #{availableCreditYes,jdbcType=DECIMAL},
+      </if>
+      <if test="availableCreditBefore != null" >
+        available_credit_before = #{availableCreditBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="availableCreditAfter != null" >
+        available_credit_after = #{availableCreditAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="cashWaitYes != null" >
+        cash_wait_yes = #{cashWaitYes,jdbcType=DECIMAL},
+      </if>
+      <if test="cashWaitBefore != null" >
+        cash_wait_before = #{cashWaitBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="cashWaitAfter != null" >
+        cash_wait_after = #{cashWaitAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="profitYes != null" >
+        profit_yes = #{profitYes,jdbcType=DECIMAL},
+      </if>
+      <if test="profitBefore != null" >
+        profit_before = #{profitBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="profitAfter != null" >
+        profit_after = #{profitAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="demandAmountYes != null" >
+        demand_amount_yes = #{demandAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="demandAmountBefore != null" >
+        demand_amount_before = #{demandAmountBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="demandAmountAfter != null" >
+        demand_amount_after = #{demandAmountAfter,jdbcType=DECIMAL},
+      </if>
+      <if test="interestAmountYes != null" >
+        interest_amount_yes = #{interestAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="interestAmountBefore != null" >
+        interest_amount_before = #{interestAmountBefore,jdbcType=DECIMAL},
+      </if>
+      <if test="interestAmountAfter != null" >
+        interest_amount_after = #{interestAmountAfter,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.UserAccountLog" >
+    update user_account_log
+    set operation_amount = #{operationAmount,jdbcType=DECIMAL},
+      operation_before = #{operationBefore,jdbcType=DECIMAL},
+      operation_after = #{operationAfter,jdbcType=DECIMAL},
+      user_id = #{userId,jdbcType=INTEGER},
+      borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER},
+      operate_use = #{operateUse,jdbcType=INTEGER},
+      nid = #{nid,jdbcType=VARCHAR},
+      frozen_amount_before = #{frozenAmountBefore,jdbcType=DECIMAL},
+      frozen_amount_after = #{frozenAmountAfter,jdbcType=DECIMAL},
+      frozen_amount_yes = #{frozenAmountYes,jdbcType=DECIMAL},
+      available_credit_yes = #{availableCreditYes,jdbcType=DECIMAL},
+      available_credit_before = #{availableCreditBefore,jdbcType=DECIMAL},
+      available_credit_after = #{availableCreditAfter,jdbcType=DECIMAL},
+      cash_wait_yes = #{cashWaitYes,jdbcType=DECIMAL},
+      cash_wait_before = #{cashWaitBefore,jdbcType=DECIMAL},
+      cash_wait_after = #{cashWaitAfter,jdbcType=DECIMAL},
+      profit_yes = #{profitYes,jdbcType=DECIMAL},
+      profit_before = #{profitBefore,jdbcType=DECIMAL},
+      profit_after = #{profitAfter,jdbcType=DECIMAL},
+      demand_amount_yes = #{demandAmountYes,jdbcType=DECIMAL},
+      demand_amount_before = #{demandAmountBefore,jdbcType=DECIMAL},
+      demand_amount_after = #{demandAmountAfter,jdbcType=DECIMAL},
+      interest_amount_yes = #{interestAmountYes,jdbcType=DECIMAL},
+      interest_amount_before = #{interestAmountBefore,jdbcType=DECIMAL},
+      interest_amount_after = #{interestAmountAfter,jdbcType=DECIMAL}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.RealUserDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.RealUser" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="regist_time" property="registTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="add_ip" property="addIp" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="cash_password" property="cashPassword" jdbcType="VARCHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="weixin" property="weixin" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="zy" property="zy" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="is_marry" property="isMarry" jdbcType="VARCHAR" />
+    <result column="is_childred" property="isChildred" jdbcType="VARCHAR" />
+    <result column="family_ship" property="familyShip" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="income" property="income" jdbcType="VARCHAR" />
+    <result column="house_info" property="houseInfo" jdbcType="VARCHAR" />
+    <result column="car_info" property="carInfo" jdbcType="VARCHAR" />
+    <result column="debts_info" property="debtsInfo" jdbcType="VARCHAR" />
+    <result column="address_hk" property="addressHk" jdbcType="VARCHAR" />
+    <result column="address_cz" property="addressCz" jdbcType="VARCHAR" />
+    <result column="addr_company" property="addrCompany" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="up_time" property="upTime" jdbcType="TIMESTAMP" />
+    <result column="card_img" property="cardImg" jdbcType="VARCHAR" />
+    <result column="card_back_img" property="cardBackImg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      Id, real_name, id_card, regist_time, status, level, modify_time, mobile, add_ip, 
+      user_id, cash_password, user_email, qq, weixin, age, sex, company_name, zy, department, 
+      info, is_marry, is_childred, family_ship, education, income, house_info, car_info, 
+      debts_info, address_hk, address_cz, addr_company, province, city, area, up_time, 
+      card_img, card_back_img
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.RealUserQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from real_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    Id,real_name,id_card,regist_time,status,level,modify_time,mobile,add_ip,user_id,cash_password,user_email,qq,weixin,age,sex,company_name,zy,department,info,is_marry,is_childred,family_ship,education,income,house_info,car_info,debts_info,address_hk,address_cz,addr_company,province,city,area,up_time,card_img,card_back_img
+    from real_user
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from real_user
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.RealUserQuery" >
+    delete from real_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.RealUser" >
+    insert into real_user (Id, real_name, id_card, 
+      regist_time, status, level, 
+      modify_time, mobile, add_ip, 
+      user_id, cash_password, user_email, 
+      qq, weixin, age, sex, 
+      company_name, zy, department, 
+      info, is_marry, is_childred, 
+      family_ship, education, income, 
+      house_info, car_info, debts_info, 
+      address_hk, address_cz, addr_company, 
+      province, city, area, 
+      up_time, card_img, card_back_img
+      )
+    values (#{id,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{registTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR}, #{addIp,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{cashPassword,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{zy,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{info,jdbcType=VARCHAR}, #{isMarry,jdbcType=VARCHAR}, #{isChildred,jdbcType=VARCHAR}, 
+      #{familyShip,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{income,jdbcType=VARCHAR}, 
+      #{houseInfo,jdbcType=VARCHAR}, #{carInfo,jdbcType=VARCHAR}, #{debtsInfo,jdbcType=VARCHAR}, 
+      #{addressHk,jdbcType=VARCHAR}, #{addressCz,jdbcType=VARCHAR}, #{addrCompany,jdbcType=VARCHAR}, 
+      #{province,jdbcType=INTEGER}, #{city,jdbcType=INTEGER}, #{area,jdbcType=INTEGER}, 
+      #{upTime,jdbcType=TIMESTAMP}, #{cardImg,jdbcType=VARCHAR}, #{cardBackImg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.RealUser" >
+    insert into real_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="registTime != null" >
+        regist_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="addIp != null" >
+        add_ip,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="cashPassword != null" >
+        cash_password,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="weixin != null" >
+        weixin,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="zy != null" >
+        zy,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="isMarry != null" >
+        is_marry,
+      </if>
+      <if test="isChildred != null" >
+        is_childred,
+      </if>
+      <if test="familyShip != null" >
+        family_ship,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="income != null" >
+        income,
+      </if>
+      <if test="houseInfo != null" >
+        house_info,
+      </if>
+      <if test="carInfo != null" >
+        car_info,
+      </if>
+      <if test="debtsInfo != null" >
+        debts_info,
+      </if>
+      <if test="addressHk != null" >
+        address_hk,
+      </if>
+      <if test="addressCz != null" >
+        address_cz,
+      </if>
+      <if test="addrCompany != null" >
+        addr_company,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="upTime != null" >
+        up_time,
+      </if>
+      <if test="cardImg != null" >
+        card_img,
+      </if>
+      <if test="cardBackImg != null" >
+        card_back_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null" >
+        #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="addIp != null" >
+        #{addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cashPassword != null" >
+        #{cashPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="zy != null" >
+        #{zy,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="isMarry != null" >
+        #{isMarry,jdbcType=VARCHAR},
+      </if>
+      <if test="isChildred != null" >
+        #{isChildred,jdbcType=VARCHAR},
+      </if>
+      <if test="familyShip != null" >
+        #{familyShip,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null" >
+        #{income,jdbcType=VARCHAR},
+      </if>
+      <if test="houseInfo != null" >
+        #{houseInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="carInfo != null" >
+        #{carInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="debtsInfo != null" >
+        #{debtsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="addressHk != null" >
+        #{addressHk,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCz != null" >
+        #{addressCz,jdbcType=VARCHAR},
+      </if>
+      <if test="addrCompany != null" >
+        #{addrCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=INTEGER},
+      </if>
+      <if test="upTime != null" >
+        #{upTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardImg != null" >
+        #{cardImg,jdbcType=VARCHAR},
+      </if>
+      <if test="cardBackImg != null" >
+        #{cardBackImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.RealUserQuery" resultType="java.lang.Integer" >
+    select count(*) from real_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update real_user
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.realName != null" >
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idCard != null" >
+        id_card = #{record.idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registTime != null" >
+        regist_time = #{record.registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addIp != null" >
+        add_ip = #{record.addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cashPassword != null" >
+        cash_password = #{record.cashPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userEmail != null" >
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixin != null" >
+        weixin = #{record.weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null" >
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zy != null" >
+        zy = #{record.zy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.info != null" >
+        info = #{record.info,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isMarry != null" >
+        is_marry = #{record.isMarry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isChildred != null" >
+        is_childred = #{record.isChildred,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familyShip != null" >
+        family_ship = #{record.familyShip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.education != null" >
+        education = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.income != null" >
+        income = #{record.income,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseInfo != null" >
+        house_info = #{record.houseInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carInfo != null" >
+        car_info = #{record.carInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.debtsInfo != null" >
+        debts_info = #{record.debtsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressHk != null" >
+        address_hk = #{record.addressHk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressCz != null" >
+        address_cz = #{record.addressCz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addrCompany != null" >
+        addr_company = #{record.addrCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=INTEGER},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=INTEGER},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=INTEGER},
+      </if>
+      <if test="record.upTime != null" >
+        up_time = #{record.upTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cardImg != null" >
+        card_img = #{record.cardImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardBackImg != null" >
+        card_back_img = #{record.cardBackImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update real_user
+    set Id = #{record.id,jdbcType=INTEGER},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      id_card = #{record.idCard,jdbcType=VARCHAR},
+      regist_time = #{record.registTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      add_ip = #{record.addIp,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      cash_password = #{record.cashPassword,jdbcType=VARCHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      weixin = #{record.weixin,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      zy = #{record.zy,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      info = #{record.info,jdbcType=VARCHAR},
+      is_marry = #{record.isMarry,jdbcType=VARCHAR},
+      is_childred = #{record.isChildred,jdbcType=VARCHAR},
+      family_ship = #{record.familyShip,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      income = #{record.income,jdbcType=VARCHAR},
+      house_info = #{record.houseInfo,jdbcType=VARCHAR},
+      car_info = #{record.carInfo,jdbcType=VARCHAR},
+      debts_info = #{record.debtsInfo,jdbcType=VARCHAR},
+      address_hk = #{record.addressHk,jdbcType=VARCHAR},
+      address_cz = #{record.addressCz,jdbcType=VARCHAR},
+      addr_company = #{record.addrCompany,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=INTEGER},
+      area = #{record.area,jdbcType=INTEGER},
+      up_time = #{record.upTime,jdbcType=TIMESTAMP},
+      card_img = #{record.cardImg,jdbcType=VARCHAR},
+      card_back_img = #{record.cardBackImg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.RealUser" >
+    update real_user
+    <set >
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null" >
+        regist_time = #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="addIp != null" >
+        add_ip = #{addIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cashPassword != null" >
+        cash_password = #{cashPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="zy != null" >
+        zy = #{zy,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="isMarry != null" >
+        is_marry = #{isMarry,jdbcType=VARCHAR},
+      </if>
+      <if test="isChildred != null" >
+        is_childred = #{isChildred,jdbcType=VARCHAR},
+      </if>
+      <if test="familyShip != null" >
+        family_ship = #{familyShip,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null" >
+        income = #{income,jdbcType=VARCHAR},
+      </if>
+      <if test="houseInfo != null" >
+        house_info = #{houseInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="carInfo != null" >
+        car_info = #{carInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="debtsInfo != null" >
+        debts_info = #{debtsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="addressHk != null" >
+        address_hk = #{addressHk,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCz != null" >
+        address_cz = #{addressCz,jdbcType=VARCHAR},
+      </if>
+      <if test="addrCompany != null" >
+        addr_company = #{addrCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=INTEGER},
+      </if>
+      <if test="upTime != null" >
+        up_time = #{upTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardImg != null" >
+        card_img = #{cardImg,jdbcType=VARCHAR},
+      </if>
+      <if test="cardBackImg != null" >
+        card_back_img = #{cardBackImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.RealUser" >
+    update real_user
+    set real_name = #{realName,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      regist_time = #{registTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      add_ip = #{addIp,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      cash_password = #{cashPassword,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      zy = #{zy,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR},
+      is_marry = #{isMarry,jdbcType=VARCHAR},
+      is_childred = #{isChildred,jdbcType=VARCHAR},
+      family_ship = #{familyShip,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      income = #{income,jdbcType=VARCHAR},
+      house_info = #{houseInfo,jdbcType=VARCHAR},
+      car_info = #{carInfo,jdbcType=VARCHAR},
+      debts_info = #{debtsInfo,jdbcType=VARCHAR},
+      address_hk = #{addressHk,jdbcType=VARCHAR},
+      address_cz = #{addressCz,jdbcType=VARCHAR},
+      addr_company = #{addrCompany,jdbcType=VARCHAR},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      area = #{area,jdbcType=INTEGER},
+      up_time = #{upTime,jdbcType=TIMESTAMP},
+      card_img = #{cardImg,jdbcType=VARCHAR},
+      card_back_img = #{cardBackImg,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

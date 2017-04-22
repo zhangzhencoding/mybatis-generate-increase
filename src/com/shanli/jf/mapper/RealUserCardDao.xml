@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.RealUserCardDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.RealUserCard" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="to_acc_name" property="toAccName" jdbcType="VARCHAR" />
+    <result column="to_acc_no" property="toAccNo" jdbcType="VARCHAR" />
+    <result column="to_bank_name" property="toBankName" jdbcType="VARCHAR" />
+    <result column="to_pro_name" property="toProName" jdbcType="VARCHAR" />
+    <result column="to_city_name" property="toCityName" jdbcType="VARCHAR" />
+    <result column="to_acc_dept" property="toAccDept" jdbcType="VARCHAR" />
+    <result column="trans_summary" property="transSummary" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="time_card" property="timeCard" jdbcType="TIMESTAMP" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="bind_id" property="bindId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      Id, to_acc_name, to_acc_no, to_bank_name, to_pro_name, to_city_name, to_acc_dept, 
+      trans_summary, user_id, time_card, mobile, bind_id, status, is_default
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.RealUserCardQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from real_user_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    Id,to_acc_name,to_acc_no,to_bank_name,to_pro_name,to_city_name,to_acc_dept,trans_summary,user_id,time_card,mobile,bind_id,status,is_default
+    from real_user_card
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from real_user_card
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.RealUserCardQuery" >
+    delete from real_user_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.RealUserCard" >
+    insert into real_user_card (Id, to_acc_name, to_acc_no, 
+      to_bank_name, to_pro_name, to_city_name, 
+      to_acc_dept, trans_summary, user_id, 
+      time_card, mobile, bind_id, 
+      status, is_default)
+    values (#{id,jdbcType=INTEGER}, #{toAccName,jdbcType=VARCHAR}, #{toAccNo,jdbcType=VARCHAR}, 
+      #{toBankName,jdbcType=VARCHAR}, #{toProName,jdbcType=VARCHAR}, #{toCityName,jdbcType=VARCHAR}, 
+      #{toAccDept,jdbcType=VARCHAR}, #{transSummary,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{timeCard,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR}, #{bindId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{isDefault,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.RealUserCard" >
+    insert into real_user_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="toAccName != null" >
+        to_acc_name,
+      </if>
+      <if test="toAccNo != null" >
+        to_acc_no,
+      </if>
+      <if test="toBankName != null" >
+        to_bank_name,
+      </if>
+      <if test="toProName != null" >
+        to_pro_name,
+      </if>
+      <if test="toCityName != null" >
+        to_city_name,
+      </if>
+      <if test="toAccDept != null" >
+        to_acc_dept,
+      </if>
+      <if test="transSummary != null" >
+        trans_summary,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="timeCard != null" >
+        time_card,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="bindId != null" >
+        bind_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="toAccName != null" >
+        #{toAccName,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccNo != null" >
+        #{toAccNo,jdbcType=VARCHAR},
+      </if>
+      <if test="toBankName != null" >
+        #{toBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="toProName != null" >
+        #{toProName,jdbcType=VARCHAR},
+      </if>
+      <if test="toCityName != null" >
+        #{toCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccDept != null" >
+        #{toAccDept,jdbcType=VARCHAR},
+      </if>
+      <if test="transSummary != null" >
+        #{transSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="timeCard != null" >
+        #{timeCard,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="bindId != null" >
+        #{bindId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.RealUserCardQuery" resultType="java.lang.Integer" >
+    select count(*) from real_user_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update real_user_card
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.toAccName != null" >
+        to_acc_name = #{record.toAccName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toAccNo != null" >
+        to_acc_no = #{record.toAccNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toBankName != null" >
+        to_bank_name = #{record.toBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toProName != null" >
+        to_pro_name = #{record.toProName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toCityName != null" >
+        to_city_name = #{record.toCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toAccDept != null" >
+        to_acc_dept = #{record.toAccDept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transSummary != null" >
+        trans_summary = #{record.transSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeCard != null" >
+        time_card = #{record.timeCard,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bindId != null" >
+        bind_id = #{record.bindId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDefault != null" >
+        is_default = #{record.isDefault,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update real_user_card
+    set Id = #{record.id,jdbcType=INTEGER},
+      to_acc_name = #{record.toAccName,jdbcType=VARCHAR},
+      to_acc_no = #{record.toAccNo,jdbcType=VARCHAR},
+      to_bank_name = #{record.toBankName,jdbcType=VARCHAR},
+      to_pro_name = #{record.toProName,jdbcType=VARCHAR},
+      to_city_name = #{record.toCityName,jdbcType=VARCHAR},
+      to_acc_dept = #{record.toAccDept,jdbcType=VARCHAR},
+      trans_summary = #{record.transSummary,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      time_card = #{record.timeCard,jdbcType=TIMESTAMP},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      bind_id = #{record.bindId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      is_default = #{record.isDefault,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.RealUserCard" >
+    update real_user_card
+    <set >
+      <if test="toAccName != null" >
+        to_acc_name = #{toAccName,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccNo != null" >
+        to_acc_no = #{toAccNo,jdbcType=VARCHAR},
+      </if>
+      <if test="toBankName != null" >
+        to_bank_name = #{toBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="toProName != null" >
+        to_pro_name = #{toProName,jdbcType=VARCHAR},
+      </if>
+      <if test="toCityName != null" >
+        to_city_name = #{toCityName,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccDept != null" >
+        to_acc_dept = #{toAccDept,jdbcType=VARCHAR},
+      </if>
+      <if test="transSummary != null" >
+        trans_summary = #{transSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="timeCard != null" >
+        time_card = #{timeCard,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="bindId != null" >
+        bind_id = #{bindId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.RealUserCard" >
+    update real_user_card
+    set to_acc_name = #{toAccName,jdbcType=VARCHAR},
+      to_acc_no = #{toAccNo,jdbcType=VARCHAR},
+      to_bank_name = #{toBankName,jdbcType=VARCHAR},
+      to_pro_name = #{toProName,jdbcType=VARCHAR},
+      to_city_name = #{toCityName,jdbcType=VARCHAR},
+      to_acc_dept = #{toAccDept,jdbcType=VARCHAR},
+      trans_summary = #{transSummary,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      time_card = #{timeCard,jdbcType=TIMESTAMP},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      bind_id = #{bindId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      is_default = #{isDefault,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.SysLinkDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.SysLink" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="stiename" property="stiename" jdbcType="VARCHAR" />
+    <result column="sitecontent" property="sitecontent" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="stieurl" property="stieurl" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="VARCHAR" />
+    <result column="uptime" property="uptime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="tourl" property="tourl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, stiename, sitecontent, type, stieurl, addtime, uptime, status, sequence, tourl
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.SysLinkQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_link
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    id,stiename,sitecontent,type,stieurl,addtime,uptime,status,sequence,tourl
+    from sys_link
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_link
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.SysLinkQuery" >
+    delete from sys_link
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.SysLink" >
+    insert into sys_link (id, stiename, sitecontent, 
+      type, stieurl, addtime, 
+      uptime, status, sequence, 
+      tourl)
+    values (#{id,jdbcType=BIGINT}, #{stiename,jdbcType=VARCHAR}, #{sitecontent,jdbcType=VARCHAR}, 
+      #{type,jdbcType=CHAR}, #{stieurl,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR}, 
+      #{uptime,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{sequence,jdbcType=INTEGER}, 
+      #{tourl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.SysLink" >
+    insert into sys_link
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stiename != null" >
+        stiename,
+      </if>
+      <if test="sitecontent != null" >
+        sitecontent,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="stieurl != null" >
+        stieurl,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="uptime != null" >
+        uptime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sequence != null" >
+        sequence,
+      </if>
+      <if test="tourl != null" >
+        tourl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="stiename != null" >
+        #{stiename,jdbcType=VARCHAR},
+      </if>
+      <if test="sitecontent != null" >
+        #{sitecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="stieurl != null" >
+        #{stieurl,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="uptime != null" >
+        #{uptime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="tourl != null" >
+        #{tourl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.SysLinkQuery" resultType="java.lang.Integer" >
+    select count(*) from sys_link
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_link
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.stiename != null" >
+        stiename = #{record.stiename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sitecontent != null" >
+        sitecontent = #{record.sitecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.stieurl != null" >
+        stieurl = #{record.stieurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null" >
+        addtime = #{record.addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uptime != null" >
+        uptime = #{record.uptime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.sequence != null" >
+        sequence = #{record.sequence,jdbcType=INTEGER},
+      </if>
+      <if test="record.tourl != null" >
+        tourl = #{record.tourl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_link
+    set id = #{record.id,jdbcType=BIGINT},
+      stiename = #{record.stiename,jdbcType=VARCHAR},
+      sitecontent = #{record.sitecontent,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=CHAR},
+      stieurl = #{record.stieurl,jdbcType=VARCHAR},
+      addtime = #{record.addtime,jdbcType=VARCHAR},
+      uptime = #{record.uptime,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=CHAR},
+      sequence = #{record.sequence,jdbcType=INTEGER},
+      tourl = #{record.tourl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.SysLink" >
+    update sys_link
+    <set >
+      <if test="stiename != null" >
+        stiename = #{stiename,jdbcType=VARCHAR},
+      </if>
+      <if test="sitecontent != null" >
+        sitecontent = #{sitecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="stieurl != null" >
+        stieurl = #{stieurl,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="uptime != null" >
+        uptime = #{uptime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="sequence != null" >
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="tourl != null" >
+        tourl = #{tourl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.SysLink" >
+    update sys_link
+    set stiename = #{stiename,jdbcType=VARCHAR},
+      sitecontent = #{sitecontent,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      stieurl = #{stieurl,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      uptime = #{uptime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      sequence = #{sequence,jdbcType=INTEGER},
+      tourl = #{tourl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

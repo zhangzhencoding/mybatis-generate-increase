@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.LoanBorrowRecoverPlanDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.LoanBorrowRecoverPlan" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="borrow_nid" property="borrowNid" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="principal_receve_wait" property="principalReceveWait" jdbcType="DECIMAL" />
+    <result column="interest_receive_wait" property="interestReceiveWait" jdbcType="DECIMAL" />
+    <result column="receive_capital_wait" property="receiveCapitalWait" jdbcType="DECIMAL" />
+    <result column="remain_capital" property="remainCapital" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="borrow_loan_id" property="borrowLoanId" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="remain_interest" property="remainInterest" jdbcType="DECIMAL" />
+    <result column="remain_count_all" property="remainCountAll" jdbcType="DECIMAL" />
+    <result column="receve_interest_yes" property="receveInterestYes" jdbcType="DECIMAL" />
+    <result column="receve_captial_yes" property="receveCaptialYes" jdbcType="DECIMAL" />
+    <result column="receve_amount_yes" property="receveAmountYes" jdbcType="DECIMAL" />
+    <result column="recover_time" property="recoverTime" jdbcType="DATE" />
+    <result column="actual_recover_time" property="actualRecoverTime" jdbcType="DATE" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      Id, user_id, product_id, borrow_nid, period, principal_receve_wait, interest_receive_wait, 
+      receive_capital_wait, remain_capital, status, borrow_loan_id, version, remain_interest, 
+      remain_count_all, receve_interest_yes, receve_captial_yes, receve_amount_yes, recover_time, 
+      actual_recover_time, add_time
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.LoanBorrowRecoverPlanQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from loan_borrow_recover_plan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    Id,user_id,product_id,borrow_nid,period,principal_receve_wait,interest_receive_wait,receive_capital_wait,remain_capital,status,borrow_loan_id,version,remain_interest,remain_count_all,receve_interest_yes,receve_captial_yes,receve_amount_yes,recover_time,actual_recover_time,add_time
+    from loan_borrow_recover_plan
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_borrow_recover_plan
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.LoanBorrowRecoverPlanQuery" >
+    delete from loan_borrow_recover_plan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.LoanBorrowRecoverPlan" >
+    insert into loan_borrow_recover_plan (Id, user_id, product_id, 
+      borrow_nid, period, principal_receve_wait, 
+      interest_receive_wait, receive_capital_wait, 
+      remain_capital, status, borrow_loan_id, 
+      version, remain_interest, remain_count_all, 
+      receve_interest_yes, receve_captial_yes, receve_amount_yes, 
+      recover_time, actual_recover_time, add_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{productId,jdbcType=VARCHAR}, 
+      #{borrowNid,jdbcType=VARCHAR}, #{period,jdbcType=INTEGER}, #{principalReceveWait,jdbcType=DECIMAL}, 
+      #{interestReceiveWait,jdbcType=DECIMAL}, #{receiveCapitalWait,jdbcType=DECIMAL}, 
+      #{remainCapital,jdbcType=DECIMAL}, #{status,jdbcType=INTEGER}, #{borrowLoanId,jdbcType=INTEGER}, 
+      #{version,jdbcType=INTEGER}, #{remainInterest,jdbcType=DECIMAL}, #{remainCountAll,jdbcType=DECIMAL}, 
+      #{receveInterestYes,jdbcType=DECIMAL}, #{receveCaptialYes,jdbcType=DECIMAL}, #{receveAmountYes,jdbcType=DECIMAL}, 
+      #{recoverTime,jdbcType=DATE}, #{actualRecoverTime,jdbcType=DATE}, #{addTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.LoanBorrowRecoverPlan" >
+    insert into loan_borrow_recover_plan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="principalReceveWait != null" >
+        principal_receve_wait,
+      </if>
+      <if test="interestReceiveWait != null" >
+        interest_receive_wait,
+      </if>
+      <if test="receiveCapitalWait != null" >
+        receive_capital_wait,
+      </if>
+      <if test="remainCapital != null" >
+        remain_capital,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="borrowLoanId != null" >
+        borrow_loan_id,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="remainInterest != null" >
+        remain_interest,
+      </if>
+      <if test="remainCountAll != null" >
+        remain_count_all,
+      </if>
+      <if test="receveInterestYes != null" >
+        receve_interest_yes,
+      </if>
+      <if test="receveCaptialYes != null" >
+        receve_captial_yes,
+      </if>
+      <if test="receveAmountYes != null" >
+        receve_amount_yes,
+      </if>
+      <if test="recoverTime != null" >
+        recover_time,
+      </if>
+      <if test="actualRecoverTime != null" >
+        actual_recover_time,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null" >
+        #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="principalReceveWait != null" >
+        #{principalReceveWait,jdbcType=DECIMAL},
+      </if>
+      <if test="interestReceiveWait != null" >
+        #{interestReceiveWait,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveCapitalWait != null" >
+        #{receiveCapitalWait,jdbcType=DECIMAL},
+      </if>
+      <if test="remainCapital != null" >
+        #{remainCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="borrowLoanId != null" >
+        #{borrowLoanId,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="remainInterest != null" >
+        #{remainInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="remainCountAll != null" >
+        #{remainCountAll,jdbcType=DECIMAL},
+      </if>
+      <if test="receveInterestYes != null" >
+        #{receveInterestYes,jdbcType=DECIMAL},
+      </if>
+      <if test="receveCaptialYes != null" >
+        #{receveCaptialYes,jdbcType=DECIMAL},
+      </if>
+      <if test="receveAmountYes != null" >
+        #{receveAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="recoverTime != null" >
+        #{recoverTime,jdbcType=DATE},
+      </if>
+      <if test="actualRecoverTime != null" >
+        #{actualRecoverTime,jdbcType=DATE},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.LoanBorrowRecoverPlanQuery" resultType="java.lang.Integer" >
+    select count(*) from loan_borrow_recover_plan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update loan_borrow_recover_plan
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowNid != null" >
+        borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.period != null" >
+        period = #{record.period,jdbcType=INTEGER},
+      </if>
+      <if test="record.principalReceveWait != null" >
+        principal_receve_wait = #{record.principalReceveWait,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interestReceiveWait != null" >
+        interest_receive_wait = #{record.interestReceiveWait,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receiveCapitalWait != null" >
+        receive_capital_wait = #{record.receiveCapitalWait,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remainCapital != null" >
+        remain_capital = #{record.remainCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowLoanId != null" >
+        borrow_loan_id = #{record.borrowLoanId,jdbcType=INTEGER},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.remainInterest != null" >
+        remain_interest = #{record.remainInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remainCountAll != null" >
+        remain_count_all = #{record.remainCountAll,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receveInterestYes != null" >
+        receve_interest_yes = #{record.receveInterestYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receveCaptialYes != null" >
+        receve_captial_yes = #{record.receveCaptialYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receveAmountYes != null" >
+        receve_amount_yes = #{record.receveAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.recoverTime != null" >
+        recover_time = #{record.recoverTime,jdbcType=DATE},
+      </if>
+      <if test="record.actualRecoverTime != null" >
+        actual_recover_time = #{record.actualRecoverTime,jdbcType=DATE},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update loan_borrow_recover_plan
+    set Id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=VARCHAR},
+      borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      period = #{record.period,jdbcType=INTEGER},
+      principal_receve_wait = #{record.principalReceveWait,jdbcType=DECIMAL},
+      interest_receive_wait = #{record.interestReceiveWait,jdbcType=DECIMAL},
+      receive_capital_wait = #{record.receiveCapitalWait,jdbcType=DECIMAL},
+      remain_capital = #{record.remainCapital,jdbcType=DECIMAL},
+      status = #{record.status,jdbcType=INTEGER},
+      borrow_loan_id = #{record.borrowLoanId,jdbcType=INTEGER},
+      version = #{record.version,jdbcType=INTEGER},
+      remain_interest = #{record.remainInterest,jdbcType=DECIMAL},
+      remain_count_all = #{record.remainCountAll,jdbcType=DECIMAL},
+      receve_interest_yes = #{record.receveInterestYes,jdbcType=DECIMAL},
+      receve_captial_yes = #{record.receveCaptialYes,jdbcType=DECIMAL},
+      receve_amount_yes = #{record.receveAmountYes,jdbcType=DECIMAL},
+      recover_time = #{record.recoverTime,jdbcType=DATE},
+      actual_recover_time = #{record.actualRecoverTime,jdbcType=DATE},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.LoanBorrowRecoverPlan" >
+    update loan_borrow_recover_plan
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="principalReceveWait != null" >
+        principal_receve_wait = #{principalReceveWait,jdbcType=DECIMAL},
+      </if>
+      <if test="interestReceiveWait != null" >
+        interest_receive_wait = #{interestReceiveWait,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveCapitalWait != null" >
+        receive_capital_wait = #{receiveCapitalWait,jdbcType=DECIMAL},
+      </if>
+      <if test="remainCapital != null" >
+        remain_capital = #{remainCapital,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="borrowLoanId != null" >
+        borrow_loan_id = #{borrowLoanId,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="remainInterest != null" >
+        remain_interest = #{remainInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="remainCountAll != null" >
+        remain_count_all = #{remainCountAll,jdbcType=DECIMAL},
+      </if>
+      <if test="receveInterestYes != null" >
+        receve_interest_yes = #{receveInterestYes,jdbcType=DECIMAL},
+      </if>
+      <if test="receveCaptialYes != null" >
+        receve_captial_yes = #{receveCaptialYes,jdbcType=DECIMAL},
+      </if>
+      <if test="receveAmountYes != null" >
+        receve_amount_yes = #{receveAmountYes,jdbcType=DECIMAL},
+      </if>
+      <if test="recoverTime != null" >
+        recover_time = #{recoverTime,jdbcType=DATE},
+      </if>
+      <if test="actualRecoverTime != null" >
+        actual_recover_time = #{actualRecoverTime,jdbcType=DATE},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.LoanBorrowRecoverPlan" >
+    update loan_borrow_recover_plan
+    set user_id = #{userId,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=VARCHAR},
+      borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      period = #{period,jdbcType=INTEGER},
+      principal_receve_wait = #{principalReceveWait,jdbcType=DECIMAL},
+      interest_receive_wait = #{interestReceiveWait,jdbcType=DECIMAL},
+      receive_capital_wait = #{receiveCapitalWait,jdbcType=DECIMAL},
+      remain_capital = #{remainCapital,jdbcType=DECIMAL},
+      status = #{status,jdbcType=INTEGER},
+      borrow_loan_id = #{borrowLoanId,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      remain_interest = #{remainInterest,jdbcType=DECIMAL},
+      remain_count_all = #{remainCountAll,jdbcType=DECIMAL},
+      receve_interest_yes = #{receveInterestYes,jdbcType=DECIMAL},
+      receve_captial_yes = #{receveCaptialYes,jdbcType=DECIMAL},
+      receve_amount_yes = #{receveAmountYes,jdbcType=DECIMAL},
+      recover_time = #{recoverTime,jdbcType=DATE},
+      actual_recover_time = #{actualRecoverTime,jdbcType=DATE},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

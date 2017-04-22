@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.UserStatusDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.UserStatus" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="phone_status" property="phoneStatus" jdbcType="TINYINT" />
+    <result column="id_card_status" property="idCardStatus" jdbcType="TINYINT" />
+    <result column="is_password" property="isPassword" jdbcType="TINYINT" />
+    <result column="is_base_info" property="isBaseInfo" jdbcType="TINYINT" />
+    <result column="is_entrust" property="isEntrust" jdbcType="TINYINT" />
+    <result column="face_status" property="faceStatus" jdbcType="TINYINT" />
+    <result column="facepp_status" property="faceppStatus" jdbcType="TINYINT" />
+    <result column="comfunds_status" property="comfundsStatus" jdbcType="TINYINT" />
+    <result column="ocial_ins_status" property="ocialInsStatus" jdbcType="TINYINT" />
+    <result column="sesame_cred_status" property="sesameCredStatus" jdbcType="TINYINT" />
+    <result column="qianhai_cred_status" property="qianhaiCredStatus" jdbcType="TINYINT" />
+    <result column="credit_card_status" property="creditCardStatus" jdbcType="TINYINT" />
+    <result column="educate_status" property="educateStatus" jdbcType="TINYINT" />
+    <result column="fadada_status" property="fadadaStatus" jdbcType="TINYINT" />
+    <result column="email_status" property="emailStatus" jdbcType="TINYINT" />
+    <result column="account_status" property="accountStatus" jdbcType="TINYINT" />
+    <result column="credit_status" property="creditStatus" jdbcType="TINYINT" />
+    <result column="safequestion_status" property="safequestionStatus" jdbcType="TINYINT" />
+    <result column="video_status" property="videoStatus" jdbcType="TINYINT" />
+    <result column="vip_status" property="vipStatus" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      Id, user_id, phone_status, id_card_status, is_password, is_base_info, is_entrust, 
+      face_status, facepp_status, comfunds_status, ocial_ins_status, sesame_cred_status, 
+      qianhai_cred_status, credit_card_status, educate_status, fadada_status, email_status, 
+      account_status, credit_status, safequestion_status, video_status, vip_status, create_time, 
+      update_time
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.UserStatusQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_status
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    Id,user_id,phone_status,id_card_status,is_password,is_base_info,is_entrust,face_status,facepp_status,comfunds_status,ocial_ins_status,sesame_cred_status,qianhai_cred_status,credit_card_status,educate_status,fadada_status,email_status,account_status,credit_status,safequestion_status,video_status,vip_status,create_time,update_time
+    from user_status
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_status
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.UserStatusQuery" >
+    delete from user_status
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.UserStatus" >
+    insert into user_status (Id, user_id, phone_status, 
+      id_card_status, is_password, is_base_info, 
+      is_entrust, face_status, facepp_status, 
+      comfunds_status, ocial_ins_status, sesame_cred_status, 
+      qianhai_cred_status, credit_card_status, educate_status, 
+      fadada_status, email_status, account_status, 
+      credit_status, safequestion_status, video_status, 
+      vip_status, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{phoneStatus,jdbcType=TINYINT}, 
+      #{idCardStatus,jdbcType=TINYINT}, #{isPassword,jdbcType=TINYINT}, #{isBaseInfo,jdbcType=TINYINT}, 
+      #{isEntrust,jdbcType=TINYINT}, #{faceStatus,jdbcType=TINYINT}, #{faceppStatus,jdbcType=TINYINT}, 
+      #{comfundsStatus,jdbcType=TINYINT}, #{ocialInsStatus,jdbcType=TINYINT}, #{sesameCredStatus,jdbcType=TINYINT}, 
+      #{qianhaiCredStatus,jdbcType=TINYINT}, #{creditCardStatus,jdbcType=TINYINT}, #{educateStatus,jdbcType=TINYINT}, 
+      #{fadadaStatus,jdbcType=TINYINT}, #{emailStatus,jdbcType=TINYINT}, #{accountStatus,jdbcType=TINYINT}, 
+      #{creditStatus,jdbcType=TINYINT}, #{safequestionStatus,jdbcType=TINYINT}, #{videoStatus,jdbcType=TINYINT}, 
+      #{vipStatus,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.UserStatus" >
+    insert into user_status
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="phoneStatus != null" >
+        phone_status,
+      </if>
+      <if test="idCardStatus != null" >
+        id_card_status,
+      </if>
+      <if test="isPassword != null" >
+        is_password,
+      </if>
+      <if test="isBaseInfo != null" >
+        is_base_info,
+      </if>
+      <if test="isEntrust != null" >
+        is_entrust,
+      </if>
+      <if test="faceStatus != null" >
+        face_status,
+      </if>
+      <if test="faceppStatus != null" >
+        facepp_status,
+      </if>
+      <if test="comfundsStatus != null" >
+        comfunds_status,
+      </if>
+      <if test="ocialInsStatus != null" >
+        ocial_ins_status,
+      </if>
+      <if test="sesameCredStatus != null" >
+        sesame_cred_status,
+      </if>
+      <if test="qianhaiCredStatus != null" >
+        qianhai_cred_status,
+      </if>
+      <if test="creditCardStatus != null" >
+        credit_card_status,
+      </if>
+      <if test="educateStatus != null" >
+        educate_status,
+      </if>
+      <if test="fadadaStatus != null" >
+        fadada_status,
+      </if>
+      <if test="emailStatus != null" >
+        email_status,
+      </if>
+      <if test="accountStatus != null" >
+        account_status,
+      </if>
+      <if test="creditStatus != null" >
+        credit_status,
+      </if>
+      <if test="safequestionStatus != null" >
+        safequestion_status,
+      </if>
+      <if test="videoStatus != null" >
+        video_status,
+      </if>
+      <if test="vipStatus != null" >
+        vip_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="phoneStatus != null" >
+        #{phoneStatus,jdbcType=TINYINT},
+      </if>
+      <if test="idCardStatus != null" >
+        #{idCardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isPassword != null" >
+        #{isPassword,jdbcType=TINYINT},
+      </if>
+      <if test="isBaseInfo != null" >
+        #{isBaseInfo,jdbcType=TINYINT},
+      </if>
+      <if test="isEntrust != null" >
+        #{isEntrust,jdbcType=TINYINT},
+      </if>
+      <if test="faceStatus != null" >
+        #{faceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="faceppStatus != null" >
+        #{faceppStatus,jdbcType=TINYINT},
+      </if>
+      <if test="comfundsStatus != null" >
+        #{comfundsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="ocialInsStatus != null" >
+        #{ocialInsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="sesameCredStatus != null" >
+        #{sesameCredStatus,jdbcType=TINYINT},
+      </if>
+      <if test="qianhaiCredStatus != null" >
+        #{qianhaiCredStatus,jdbcType=TINYINT},
+      </if>
+      <if test="creditCardStatus != null" >
+        #{creditCardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="educateStatus != null" >
+        #{educateStatus,jdbcType=TINYINT},
+      </if>
+      <if test="fadadaStatus != null" >
+        #{fadadaStatus,jdbcType=TINYINT},
+      </if>
+      <if test="emailStatus != null" >
+        #{emailStatus,jdbcType=TINYINT},
+      </if>
+      <if test="accountStatus != null" >
+        #{accountStatus,jdbcType=TINYINT},
+      </if>
+      <if test="creditStatus != null" >
+        #{creditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="safequestionStatus != null" >
+        #{safequestionStatus,jdbcType=TINYINT},
+      </if>
+      <if test="videoStatus != null" >
+        #{videoStatus,jdbcType=TINYINT},
+      </if>
+      <if test="vipStatus != null" >
+        #{vipStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.UserStatusQuery" resultType="java.lang.Integer" >
+    select count(*) from user_status
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_status
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.phoneStatus != null" >
+        phone_status = #{record.phoneStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.idCardStatus != null" >
+        id_card_status = #{record.idCardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.isPassword != null" >
+        is_password = #{record.isPassword,jdbcType=TINYINT},
+      </if>
+      <if test="record.isBaseInfo != null" >
+        is_base_info = #{record.isBaseInfo,jdbcType=TINYINT},
+      </if>
+      <if test="record.isEntrust != null" >
+        is_entrust = #{record.isEntrust,jdbcType=TINYINT},
+      </if>
+      <if test="record.faceStatus != null" >
+        face_status = #{record.faceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.faceppStatus != null" >
+        facepp_status = #{record.faceppStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.comfundsStatus != null" >
+        comfunds_status = #{record.comfundsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.ocialInsStatus != null" >
+        ocial_ins_status = #{record.ocialInsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.sesameCredStatus != null" >
+        sesame_cred_status = #{record.sesameCredStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.qianhaiCredStatus != null" >
+        qianhai_cred_status = #{record.qianhaiCredStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.creditCardStatus != null" >
+        credit_card_status = #{record.creditCardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.educateStatus != null" >
+        educate_status = #{record.educateStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.fadadaStatus != null" >
+        fadada_status = #{record.fadadaStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.emailStatus != null" >
+        email_status = #{record.emailStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.accountStatus != null" >
+        account_status = #{record.accountStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.creditStatus != null" >
+        credit_status = #{record.creditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.safequestionStatus != null" >
+        safequestion_status = #{record.safequestionStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.videoStatus != null" >
+        video_status = #{record.videoStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.vipStatus != null" >
+        vip_status = #{record.vipStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_status
+    set Id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      phone_status = #{record.phoneStatus,jdbcType=TINYINT},
+      id_card_status = #{record.idCardStatus,jdbcType=TINYINT},
+      is_password = #{record.isPassword,jdbcType=TINYINT},
+      is_base_info = #{record.isBaseInfo,jdbcType=TINYINT},
+      is_entrust = #{record.isEntrust,jdbcType=TINYINT},
+      face_status = #{record.faceStatus,jdbcType=TINYINT},
+      facepp_status = #{record.faceppStatus,jdbcType=TINYINT},
+      comfunds_status = #{record.comfundsStatus,jdbcType=TINYINT},
+      ocial_ins_status = #{record.ocialInsStatus,jdbcType=TINYINT},
+      sesame_cred_status = #{record.sesameCredStatus,jdbcType=TINYINT},
+      qianhai_cred_status = #{record.qianhaiCredStatus,jdbcType=TINYINT},
+      credit_card_status = #{record.creditCardStatus,jdbcType=TINYINT},
+      educate_status = #{record.educateStatus,jdbcType=TINYINT},
+      fadada_status = #{record.fadadaStatus,jdbcType=TINYINT},
+      email_status = #{record.emailStatus,jdbcType=TINYINT},
+      account_status = #{record.accountStatus,jdbcType=TINYINT},
+      credit_status = #{record.creditStatus,jdbcType=TINYINT},
+      safequestion_status = #{record.safequestionStatus,jdbcType=TINYINT},
+      video_status = #{record.videoStatus,jdbcType=TINYINT},
+      vip_status = #{record.vipStatus,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.UserStatus" >
+    update user_status
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="phoneStatus != null" >
+        phone_status = #{phoneStatus,jdbcType=TINYINT},
+      </if>
+      <if test="idCardStatus != null" >
+        id_card_status = #{idCardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isPassword != null" >
+        is_password = #{isPassword,jdbcType=TINYINT},
+      </if>
+      <if test="isBaseInfo != null" >
+        is_base_info = #{isBaseInfo,jdbcType=TINYINT},
+      </if>
+      <if test="isEntrust != null" >
+        is_entrust = #{isEntrust,jdbcType=TINYINT},
+      </if>
+      <if test="faceStatus != null" >
+        face_status = #{faceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="faceppStatus != null" >
+        facepp_status = #{faceppStatus,jdbcType=TINYINT},
+      </if>
+      <if test="comfundsStatus != null" >
+        comfunds_status = #{comfundsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="ocialInsStatus != null" >
+        ocial_ins_status = #{ocialInsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="sesameCredStatus != null" >
+        sesame_cred_status = #{sesameCredStatus,jdbcType=TINYINT},
+      </if>
+      <if test="qianhaiCredStatus != null" >
+        qianhai_cred_status = #{qianhaiCredStatus,jdbcType=TINYINT},
+      </if>
+      <if test="creditCardStatus != null" >
+        credit_card_status = #{creditCardStatus,jdbcType=TINYINT},
+      </if>
+      <if test="educateStatus != null" >
+        educate_status = #{educateStatus,jdbcType=TINYINT},
+      </if>
+      <if test="fadadaStatus != null" >
+        fadada_status = #{fadadaStatus,jdbcType=TINYINT},
+      </if>
+      <if test="emailStatus != null" >
+        email_status = #{emailStatus,jdbcType=TINYINT},
+      </if>
+      <if test="accountStatus != null" >
+        account_status = #{accountStatus,jdbcType=TINYINT},
+      </if>
+      <if test="creditStatus != null" >
+        credit_status = #{creditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="safequestionStatus != null" >
+        safequestion_status = #{safequestionStatus,jdbcType=TINYINT},
+      </if>
+      <if test="videoStatus != null" >
+        video_status = #{videoStatus,jdbcType=TINYINT},
+      </if>
+      <if test="vipStatus != null" >
+        vip_status = #{vipStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.UserStatus" >
+    update user_status
+    set user_id = #{userId,jdbcType=INTEGER},
+      phone_status = #{phoneStatus,jdbcType=TINYINT},
+      id_card_status = #{idCardStatus,jdbcType=TINYINT},
+      is_password = #{isPassword,jdbcType=TINYINT},
+      is_base_info = #{isBaseInfo,jdbcType=TINYINT},
+      is_entrust = #{isEntrust,jdbcType=TINYINT},
+      face_status = #{faceStatus,jdbcType=TINYINT},
+      facepp_status = #{faceppStatus,jdbcType=TINYINT},
+      comfunds_status = #{comfundsStatus,jdbcType=TINYINT},
+      ocial_ins_status = #{ocialInsStatus,jdbcType=TINYINT},
+      sesame_cred_status = #{sesameCredStatus,jdbcType=TINYINT},
+      qianhai_cred_status = #{qianhaiCredStatus,jdbcType=TINYINT},
+      credit_card_status = #{creditCardStatus,jdbcType=TINYINT},
+      educate_status = #{educateStatus,jdbcType=TINYINT},
+      fadada_status = #{fadadaStatus,jdbcType=TINYINT},
+      email_status = #{emailStatus,jdbcType=TINYINT},
+      account_status = #{accountStatus,jdbcType=TINYINT},
+      credit_status = #{creditStatus,jdbcType=TINYINT},
+      safequestion_status = #{safequestionStatus,jdbcType=TINYINT},
+      video_status = #{videoStatus,jdbcType=TINYINT},
+      vip_status = #{vipStatus,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.UserDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sina_id" property="sinaId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="pass_word" property="passWord" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="lock_status" property="lockStatus" jdbcType="INTEGER" />
+    <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
+    <result column="weixin_url" property="weixinUrl" jdbcType="VARCHAR" />
+    <result column="weixin_key" property="weixinKey" jdbcType="VARCHAR" />
+    <result column="device_token" property="deviceToken" jdbcType="VARCHAR" />
+    <result column="device_info" property="deviceInfo" jdbcType="VARCHAR" />
+    <result column="recommend_user_id" property="recommendUserId" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="gesture_password" property="gesturePassword" jdbcType="INTEGER" />
+    <result column="lock_time" property="lockTime" jdbcType="TIMESTAMP" />
+    <result column="user_type" property="userType" jdbcType="TINYINT" />
+    <result column="reg_ip" property="regIp" jdbcType="VARCHAR" />
+    <result column="agent_id" property="agentId" jdbcType="VARCHAR" />
+    <result column="apptype" property="apptype" jdbcType="TINYINT" />
+    <result column="user_source" property="userSource" jdbcType="VARCHAR" />
+    <result column="invest_code" property="investCode" jdbcType="VARCHAR" />
+    <result column="bd_user_code" property="bdUserCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, sina_id, user_name, update_time, create_time, pass_word, mobile, status, lock_status, 
+      invite_code, weixin_url, weixin_key, device_token, device_info, recommend_user_id, 
+      level, gesture_password, lock_time, user_type, reg_ip, agent_id, apptype, user_source, 
+      invest_code, bd_user_code
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.UserQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,sina_id,user_name,update_time,create_time,pass_word,mobile,status,lock_status,invite_code,weixin_url,weixin_key,device_token,device_info,recommend_user_id,level,gesture_password,lock_time,user_type,reg_ip,agent_id,apptype,user_source,invest_code,bd_user_code
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.UserQuery" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.User" >
+    insert into user (id, sina_id, user_name, 
+      update_time, create_time, pass_word, 
+      mobile, status, lock_status, 
+      invite_code, weixin_url, weixin_key, 
+      device_token, device_info, recommend_user_id, 
+      level, gesture_password, lock_time, 
+      user_type, reg_ip, agent_id, 
+      apptype, user_source, invest_code, 
+      bd_user_code)
+    values (#{id,jdbcType=INTEGER}, #{sinaId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{passWord,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{lockStatus,jdbcType=INTEGER}, 
+      #{inviteCode,jdbcType=VARCHAR}, #{weixinUrl,jdbcType=VARCHAR}, #{weixinKey,jdbcType=VARCHAR}, 
+      #{deviceToken,jdbcType=VARCHAR}, #{deviceInfo,jdbcType=VARCHAR}, #{recommendUserId,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{gesturePassword,jdbcType=INTEGER}, #{lockTime,jdbcType=TIMESTAMP}, 
+      #{userType,jdbcType=TINYINT}, #{regIp,jdbcType=VARCHAR}, #{agentId,jdbcType=VARCHAR}, 
+      #{apptype,jdbcType=TINYINT}, #{userSource,jdbcType=VARCHAR}, #{investCode,jdbcType=VARCHAR}, 
+      #{bdUserCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sinaId != null" >
+        sina_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="passWord != null" >
+        pass_word,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="lockStatus != null" >
+        lock_status,
+      </if>
+      <if test="inviteCode != null" >
+        invite_code,
+      </if>
+      <if test="weixinUrl != null" >
+        weixin_url,
+      </if>
+      <if test="weixinKey != null" >
+        weixin_key,
+      </if>
+      <if test="deviceToken != null" >
+        device_token,
+      </if>
+      <if test="deviceInfo != null" >
+        device_info,
+      </if>
+      <if test="recommendUserId != null" >
+        recommend_user_id,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="gesturePassword != null" >
+        gesture_password,
+      </if>
+      <if test="lockTime != null" >
+        lock_time,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="regIp != null" >
+        reg_ip,
+      </if>
+      <if test="agentId != null" >
+        agent_id,
+      </if>
+      <if test="apptype != null" >
+        apptype,
+      </if>
+      <if test="userSource != null" >
+        user_source,
+      </if>
+      <if test="investCode != null" >
+        invest_code,
+      </if>
+      <if test="bdUserCode != null" >
+        bd_user_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sinaId != null" >
+        #{sinaId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passWord != null" >
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lockStatus != null" >
+        #{lockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="inviteCode != null" >
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinUrl != null" >
+        #{weixinUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinKey != null" >
+        #{weixinKey,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceToken != null" >
+        #{deviceToken,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceInfo != null" >
+        #{deviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendUserId != null" >
+        #{recommendUserId,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="gesturePassword != null" >
+        #{gesturePassword,jdbcType=INTEGER},
+      </if>
+      <if test="lockTime != null" >
+        #{lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="regIp != null" >
+        #{regIp,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="apptype != null" >
+        #{apptype,jdbcType=TINYINT},
+      </if>
+      <if test="userSource != null" >
+        #{userSource,jdbcType=VARCHAR},
+      </if>
+      <if test="investCode != null" >
+        #{investCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bdUserCode != null" >
+        #{bdUserCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.UserQuery" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.sinaId != null" >
+        sina_id = #{record.sinaId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.passWord != null" >
+        pass_word = #{record.passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockStatus != null" >
+        lock_status = #{record.lockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.inviteCode != null" >
+        invite_code = #{record.inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixinUrl != null" >
+        weixin_url = #{record.weixinUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixinKey != null" >
+        weixin_key = #{record.weixinKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceToken != null" >
+        device_token = #{record.deviceToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceInfo != null" >
+        device_info = #{record.deviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommendUserId != null" >
+        recommend_user_id = #{record.recommendUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.gesturePassword != null" >
+        gesture_password = #{record.gesturePassword,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockTime != null" >
+        lock_time = #{record.lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userType != null" >
+        user_type = #{record.userType,jdbcType=TINYINT},
+      </if>
+      <if test="record.regIp != null" >
+        reg_ip = #{record.regIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentId != null" >
+        agent_id = #{record.agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apptype != null" >
+        apptype = #{record.apptype,jdbcType=TINYINT},
+      </if>
+      <if test="record.userSource != null" >
+        user_source = #{record.userSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.investCode != null" >
+        invest_code = #{record.investCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bdUserCode != null" >
+        bd_user_code = #{record.bdUserCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set id = #{record.id,jdbcType=INTEGER},
+      sina_id = #{record.sinaId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      pass_word = #{record.passWord,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      lock_status = #{record.lockStatus,jdbcType=INTEGER},
+      invite_code = #{record.inviteCode,jdbcType=VARCHAR},
+      weixin_url = #{record.weixinUrl,jdbcType=VARCHAR},
+      weixin_key = #{record.weixinKey,jdbcType=VARCHAR},
+      device_token = #{record.deviceToken,jdbcType=VARCHAR},
+      device_info = #{record.deviceInfo,jdbcType=VARCHAR},
+      recommend_user_id = #{record.recommendUserId,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      gesture_password = #{record.gesturePassword,jdbcType=INTEGER},
+      lock_time = #{record.lockTime,jdbcType=TIMESTAMP},
+      user_type = #{record.userType,jdbcType=TINYINT},
+      reg_ip = #{record.regIp,jdbcType=VARCHAR},
+      agent_id = #{record.agentId,jdbcType=VARCHAR},
+      apptype = #{record.apptype,jdbcType=TINYINT},
+      user_source = #{record.userSource,jdbcType=VARCHAR},
+      invest_code = #{record.investCode,jdbcType=VARCHAR},
+      bd_user_code = #{record.bdUserCode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.User" >
+    update user
+    <set >
+      <if test="sinaId != null" >
+        sina_id = #{sinaId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="passWord != null" >
+        pass_word = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lockStatus != null" >
+        lock_status = #{lockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="inviteCode != null" >
+        invite_code = #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinUrl != null" >
+        weixin_url = #{weixinUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinKey != null" >
+        weixin_key = #{weixinKey,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceToken != null" >
+        device_token = #{deviceToken,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceInfo != null" >
+        device_info = #{deviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendUserId != null" >
+        recommend_user_id = #{recommendUserId,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="gesturePassword != null" >
+        gesture_password = #{gesturePassword,jdbcType=INTEGER},
+      </if>
+      <if test="lockTime != null" >
+        lock_time = #{lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="regIp != null" >
+        reg_ip = #{regIp,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        agent_id = #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="apptype != null" >
+        apptype = #{apptype,jdbcType=TINYINT},
+      </if>
+      <if test="userSource != null" >
+        user_source = #{userSource,jdbcType=VARCHAR},
+      </if>
+      <if test="investCode != null" >
+        invest_code = #{investCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bdUserCode != null" >
+        bd_user_code = #{bdUserCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.User" >
+    update user
+    set sina_id = #{sinaId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pass_word = #{passWord,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      lock_status = #{lockStatus,jdbcType=INTEGER},
+      invite_code = #{inviteCode,jdbcType=VARCHAR},
+      weixin_url = #{weixinUrl,jdbcType=VARCHAR},
+      weixin_key = #{weixinKey,jdbcType=VARCHAR},
+      device_token = #{deviceToken,jdbcType=VARCHAR},
+      device_info = #{deviceInfo,jdbcType=VARCHAR},
+      recommend_user_id = #{recommendUserId,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      gesture_password = #{gesturePassword,jdbcType=INTEGER},
+      lock_time = #{lockTime,jdbcType=TIMESTAMP},
+      user_type = #{userType,jdbcType=TINYINT},
+      reg_ip = #{regIp,jdbcType=VARCHAR},
+      agent_id = #{agentId,jdbcType=VARCHAR},
+      apptype = #{apptype,jdbcType=TINYINT},
+      user_source = #{userSource,jdbcType=VARCHAR},
+      invest_code = #{investCode,jdbcType=VARCHAR},
+      bd_user_code = #{bdUserCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.SysCodeConfigInfoDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.SysCodeConfigInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code_name" property="codeName" jdbcType="VARCHAR" />
+    <result column="code_desc" property="codeDesc" jdbcType="VARCHAR" />
+    <result column="sub_code_name" property="subCodeName" jdbcType="VARCHAR" />
+    <result column="sub_code_desc" property="subCodeDesc" jdbcType="VARCHAR" />
+    <result column="code_value" property="codeValue" jdbcType="VARCHAR" />
+    <result column="code_value_desc" property="codeValueDesc" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, code_name, code_desc, sub_code_name, sub_code_desc, code_value, code_value_desc, 
+      status, create_time, update_time
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.SysCodeConfigInfoQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_code_config_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,code_name,code_desc,sub_code_name,sub_code_desc,code_value,code_value_desc,status,create_time,update_time
+    from sys_code_config_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_code_config_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.SysCodeConfigInfoQuery" >
+    delete from sys_code_config_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.SysCodeConfigInfo" >
+    insert into sys_code_config_info (id, code_name, code_desc, 
+      sub_code_name, sub_code_desc, code_value, 
+      code_value_desc, status, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{codeName,jdbcType=VARCHAR}, #{codeDesc,jdbcType=VARCHAR}, 
+      #{subCodeName,jdbcType=VARCHAR}, #{subCodeDesc,jdbcType=VARCHAR}, #{codeValue,jdbcType=VARCHAR}, 
+      #{codeValueDesc,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.SysCodeConfigInfo" >
+    insert into sys_code_config_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="codeName != null" >
+        code_name,
+      </if>
+      <if test="codeDesc != null" >
+        code_desc,
+      </if>
+      <if test="subCodeName != null" >
+        sub_code_name,
+      </if>
+      <if test="subCodeDesc != null" >
+        sub_code_desc,
+      </if>
+      <if test="codeValue != null" >
+        code_value,
+      </if>
+      <if test="codeValueDesc != null" >
+        code_value_desc,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="codeName != null" >
+        #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="codeDesc != null" >
+        #{codeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="subCodeName != null" >
+        #{subCodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="subCodeDesc != null" >
+        #{subCodeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="codeValue != null" >
+        #{codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="codeValueDesc != null" >
+        #{codeValueDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.SysCodeConfigInfoQuery" resultType="java.lang.Integer" >
+    select count(*) from sys_code_config_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_code_config_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.codeName != null" >
+        code_name = #{record.codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeDesc != null" >
+        code_desc = #{record.codeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subCodeName != null" >
+        sub_code_name = #{record.subCodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subCodeDesc != null" >
+        sub_code_desc = #{record.subCodeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeValue != null" >
+        code_value = #{record.codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeValueDesc != null" >
+        code_value_desc = #{record.codeValueDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_code_config_info
+    set id = #{record.id,jdbcType=INTEGER},
+      code_name = #{record.codeName,jdbcType=VARCHAR},
+      code_desc = #{record.codeDesc,jdbcType=VARCHAR},
+      sub_code_name = #{record.subCodeName,jdbcType=VARCHAR},
+      sub_code_desc = #{record.subCodeDesc,jdbcType=VARCHAR},
+      code_value = #{record.codeValue,jdbcType=VARCHAR},
+      code_value_desc = #{record.codeValueDesc,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.SysCodeConfigInfo" >
+    update sys_code_config_info
+    <set >
+      <if test="codeName != null" >
+        code_name = #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="codeDesc != null" >
+        code_desc = #{codeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="subCodeName != null" >
+        sub_code_name = #{subCodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="subCodeDesc != null" >
+        sub_code_desc = #{subCodeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="codeValue != null" >
+        code_value = #{codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="codeValueDesc != null" >
+        code_value_desc = #{codeValueDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.SysCodeConfigInfo" >
+    update sys_code_config_info
+    set code_name = #{codeName,jdbcType=VARCHAR},
+      code_desc = #{codeDesc,jdbcType=VARCHAR},
+      sub_code_name = #{subCodeName,jdbcType=VARCHAR},
+      sub_code_desc = #{subCodeDesc,jdbcType=VARCHAR},
+      code_value = #{codeValue,jdbcType=VARCHAR},
+      code_value_desc = #{codeValueDesc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

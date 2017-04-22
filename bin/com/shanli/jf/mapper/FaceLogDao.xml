@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.FaceLogDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.FaceLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="idcard_number" property="idcardNumber" jdbcType="VARCHAR" />
+    <result column="idcard_name" property="idcardName" jdbcType="VARCHAR" />
+    <result column="valid_date" property="validDate" jdbcType="VARCHAR" />
+    <result column="confidence" property="confidence" jdbcType="DECIMAL" />
+    <result column="shenfen_z" property="shenfenZ" jdbcType="VARCHAR" />
+    <result column="shenfen_f" property="shenfenF" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="INTEGER" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, user_id, idcard_number, idcard_name, valid_date, confidence, shenfen_z, shenfen_f, 
+      create_date, image, address
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.FaceLogQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from face_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,user_id,idcard_number,idcard_name,valid_date,confidence,shenfen_z,shenfen_f,create_date,image,address
+    from face_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from face_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.FaceLogQuery" >
+    delete from face_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.FaceLog" >
+    insert into face_log (id, user_id, idcard_number, 
+      idcard_name, valid_date, confidence, 
+      shenfen_z, shenfen_f, create_date, 
+      image, address)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{idcardNumber,jdbcType=VARCHAR}, 
+      #{idcardName,jdbcType=VARCHAR}, #{validDate,jdbcType=VARCHAR}, #{confidence,jdbcType=DECIMAL}, 
+      #{shenfenZ,jdbcType=VARCHAR}, #{shenfenF,jdbcType=VARCHAR}, #{createDate,jdbcType=INTEGER}, 
+      #{image,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.FaceLog" >
+    insert into face_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="idcardNumber != null" >
+        idcard_number,
+      </if>
+      <if test="idcardName != null" >
+        idcard_name,
+      </if>
+      <if test="validDate != null" >
+        valid_date,
+      </if>
+      <if test="confidence != null" >
+        confidence,
+      </if>
+      <if test="shenfenZ != null" >
+        shenfen_z,
+      </if>
+      <if test="shenfenF != null" >
+        shenfen_f,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="idcardNumber != null" >
+        #{idcardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardName != null" >
+        #{idcardName,jdbcType=VARCHAR},
+      </if>
+      <if test="validDate != null" >
+        #{validDate,jdbcType=VARCHAR},
+      </if>
+      <if test="confidence != null" >
+        #{confidence,jdbcType=DECIMAL},
+      </if>
+      <if test="shenfenZ != null" >
+        #{shenfenZ,jdbcType=VARCHAR},
+      </if>
+      <if test="shenfenF != null" >
+        #{shenfenF,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.FaceLogQuery" resultType="java.lang.Integer" >
+    select count(*) from face_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update face_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.idcardNumber != null" >
+        idcard_number = #{record.idcardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardName != null" >
+        idcard_name = #{record.idcardName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validDate != null" >
+        valid_date = #{record.validDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.confidence != null" >
+        confidence = #{record.confidence,jdbcType=DECIMAL},
+      </if>
+      <if test="record.shenfenZ != null" >
+        shenfen_z = #{record.shenfenZ,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenfenF != null" >
+        shenfen_f = #{record.shenfenF,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update face_log
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      idcard_number = #{record.idcardNumber,jdbcType=VARCHAR},
+      idcard_name = #{record.idcardName,jdbcType=VARCHAR},
+      valid_date = #{record.validDate,jdbcType=VARCHAR},
+      confidence = #{record.confidence,jdbcType=DECIMAL},
+      shenfen_z = #{record.shenfenZ,jdbcType=VARCHAR},
+      shenfen_f = #{record.shenfenF,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=INTEGER},
+      image = #{record.image,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.FaceLog" >
+    update face_log
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="idcardNumber != null" >
+        idcard_number = #{idcardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardName != null" >
+        idcard_name = #{idcardName,jdbcType=VARCHAR},
+      </if>
+      <if test="validDate != null" >
+        valid_date = #{validDate,jdbcType=VARCHAR},
+      </if>
+      <if test="confidence != null" >
+        confidence = #{confidence,jdbcType=DECIMAL},
+      </if>
+      <if test="shenfenZ != null" >
+        shenfen_z = #{shenfenZ,jdbcType=VARCHAR},
+      </if>
+      <if test="shenfenF != null" >
+        shenfen_f = #{shenfenF,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=INTEGER},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.FaceLog" >
+    update face_log
+    set user_id = #{userId,jdbcType=INTEGER},
+      idcard_number = #{idcardNumber,jdbcType=VARCHAR},
+      idcard_name = #{idcardName,jdbcType=VARCHAR},
+      valid_date = #{validDate,jdbcType=VARCHAR},
+      confidence = #{confidence,jdbcType=DECIMAL},
+      shenfen_z = #{shenfenZ,jdbcType=VARCHAR},
+      shenfen_f = #{shenfenF,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=INTEGER},
+      image = #{image,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

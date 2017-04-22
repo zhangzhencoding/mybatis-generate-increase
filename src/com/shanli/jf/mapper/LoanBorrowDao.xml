@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.LoanBorrowDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.LoanBorrow" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="borrow_nid" property="borrowNid" jdbcType="VARCHAR" />
+    <result column="borrow_name" property="borrowName" jdbcType="VARCHAR" />
+    <result column="borrow_amount" property="borrowAmount" jdbcType="INTEGER" />
+    <result column="borrow_use" property="borrowUse" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DECIMAL" />
+    <result column="duration_type" property="durationType" jdbcType="VARCHAR" />
+    <result column="duration" property="duration" jdbcType="INTEGER" />
+    <result column="repayment_type" property="repaymentType" jdbcType="VARCHAR" />
+    <result column="borrow_user_id" property="borrowUserId" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="interest_day" property="interestDay" jdbcType="INTEGER" />
+    <result column="repayment_date" property="repaymentDate" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="risk_money" property="riskMoney" jdbcType="DECIMAL" />
+    <result column="borrow_fee" property="borrowFee" jdbcType="DECIMAL" />
+    <result column="risk_level" property="riskLevel" jdbcType="VARCHAR" />
+    <result column="service_fee" property="serviceFee" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, product_id, borrow_nid, borrow_name, borrow_amount, borrow_use, rate, duration_type, 
+      duration, repayment_type, borrow_user_id, period, interest_day, repayment_date, status, 
+      remark, risk_money, borrow_fee, risk_level, service_fee, create_time, update_time
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.LoanBorrowQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from loan_borrow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    id,product_id,borrow_nid,borrow_name,borrow_amount,borrow_use,rate,duration_type,duration,repayment_type,borrow_user_id,period,interest_day,repayment_date,status,remark,risk_money,borrow_fee,risk_level,service_fee,create_time,update_time
+    from loan_borrow
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from loan_borrow
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.LoanBorrowQuery" >
+    delete from loan_borrow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.LoanBorrow" >
+    insert into loan_borrow (id, product_id, borrow_nid, 
+      borrow_name, borrow_amount, borrow_use, 
+      rate, duration_type, duration, 
+      repayment_type, borrow_user_id, period, 
+      interest_day, repayment_date, status, 
+      remark, risk_money, borrow_fee, 
+      risk_level, service_fee, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=VARCHAR}, #{borrowNid,jdbcType=VARCHAR}, 
+      #{borrowName,jdbcType=VARCHAR}, #{borrowAmount,jdbcType=INTEGER}, #{borrowUse,jdbcType=VARCHAR}, 
+      #{rate,jdbcType=DECIMAL}, #{durationType,jdbcType=VARCHAR}, #{duration,jdbcType=INTEGER}, 
+      #{repaymentType,jdbcType=VARCHAR}, #{borrowUserId,jdbcType=INTEGER}, #{period,jdbcType=INTEGER}, 
+      #{interestDay,jdbcType=INTEGER}, #{repaymentDate,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{riskMoney,jdbcType=DECIMAL}, #{borrowFee,jdbcType=DECIMAL}, 
+      #{riskLevel,jdbcType=VARCHAR}, #{serviceFee,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.LoanBorrow" >
+    insert into loan_borrow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid,
+      </if>
+      <if test="borrowName != null" >
+        borrow_name,
+      </if>
+      <if test="borrowAmount != null" >
+        borrow_amount,
+      </if>
+      <if test="borrowUse != null" >
+        borrow_use,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="durationType != null" >
+        duration_type,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="repaymentType != null" >
+        repayment_type,
+      </if>
+      <if test="borrowUserId != null" >
+        borrow_user_id,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="interestDay != null" >
+        interest_day,
+      </if>
+      <if test="repaymentDate != null" >
+        repayment_date,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="riskMoney != null" >
+        risk_money,
+      </if>
+      <if test="borrowFee != null" >
+        borrow_fee,
+      </if>
+      <if test="riskLevel != null" >
+        risk_level,
+      </if>
+      <if test="serviceFee != null" >
+        service_fee,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null" >
+        #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowName != null" >
+        #{borrowName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowAmount != null" >
+        #{borrowAmount,jdbcType=INTEGER},
+      </if>
+      <if test="borrowUse != null" >
+        #{borrowUse,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="durationType != null" >
+        #{durationType,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentType != null" >
+        #{repaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowUserId != null" >
+        #{borrowUserId,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="interestDay != null" >
+        #{interestDay,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentDate != null" >
+        #{repaymentDate,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="riskMoney != null" >
+        #{riskMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowFee != null" >
+        #{borrowFee,jdbcType=DECIMAL},
+      </if>
+      <if test="riskLevel != null" >
+        #{riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceFee != null" >
+        #{serviceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.LoanBorrowQuery" resultType="java.lang.Integer" >
+    select count(*) from loan_borrow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update loan_borrow
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowNid != null" >
+        borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowName != null" >
+        borrow_name = #{record.borrowName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowAmount != null" >
+        borrow_amount = #{record.borrowAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowUse != null" >
+        borrow_use = #{record.borrowUse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rate != null" >
+        rate = #{record.rate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.durationType != null" >
+        duration_type = #{record.durationType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duration != null" >
+        duration = #{record.duration,jdbcType=INTEGER},
+      </if>
+      <if test="record.repaymentType != null" >
+        repayment_type = #{record.repaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowUserId != null" >
+        borrow_user_id = #{record.borrowUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.period != null" >
+        period = #{record.period,jdbcType=INTEGER},
+      </if>
+      <if test="record.interestDay != null" >
+        interest_day = #{record.interestDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.repaymentDate != null" >
+        repayment_date = #{record.repaymentDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskMoney != null" >
+        risk_money = #{record.riskMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.borrowFee != null" >
+        borrow_fee = #{record.borrowFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.riskLevel != null" >
+        risk_level = #{record.riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceFee != null" >
+        service_fee = #{record.serviceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update loan_borrow
+    set id = #{record.id,jdbcType=INTEGER},
+      product_id = #{record.productId,jdbcType=VARCHAR},
+      borrow_nid = #{record.borrowNid,jdbcType=VARCHAR},
+      borrow_name = #{record.borrowName,jdbcType=VARCHAR},
+      borrow_amount = #{record.borrowAmount,jdbcType=INTEGER},
+      borrow_use = #{record.borrowUse,jdbcType=VARCHAR},
+      rate = #{record.rate,jdbcType=DECIMAL},
+      duration_type = #{record.durationType,jdbcType=VARCHAR},
+      duration = #{record.duration,jdbcType=INTEGER},
+      repayment_type = #{record.repaymentType,jdbcType=VARCHAR},
+      borrow_user_id = #{record.borrowUserId,jdbcType=INTEGER},
+      period = #{record.period,jdbcType=INTEGER},
+      interest_day = #{record.interestDay,jdbcType=INTEGER},
+      repayment_date = #{record.repaymentDate,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      risk_money = #{record.riskMoney,jdbcType=DECIMAL},
+      borrow_fee = #{record.borrowFee,jdbcType=DECIMAL},
+      risk_level = #{record.riskLevel,jdbcType=VARCHAR},
+      service_fee = #{record.serviceFee,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.LoanBorrow" >
+    update loan_borrow
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowNid != null" >
+        borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowName != null" >
+        borrow_name = #{borrowName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowAmount != null" >
+        borrow_amount = #{borrowAmount,jdbcType=INTEGER},
+      </if>
+      <if test="borrowUse != null" >
+        borrow_use = #{borrowUse,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="durationType != null" >
+        duration_type = #{durationType,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentType != null" >
+        repayment_type = #{repaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowUserId != null" >
+        borrow_user_id = #{borrowUserId,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="interestDay != null" >
+        interest_day = #{interestDay,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentDate != null" >
+        repayment_date = #{repaymentDate,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="riskMoney != null" >
+        risk_money = #{riskMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowFee != null" >
+        borrow_fee = #{borrowFee,jdbcType=DECIMAL},
+      </if>
+      <if test="riskLevel != null" >
+        risk_level = #{riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceFee != null" >
+        service_fee = #{serviceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.LoanBorrow" >
+    update loan_borrow
+    set product_id = #{productId,jdbcType=VARCHAR},
+      borrow_nid = #{borrowNid,jdbcType=VARCHAR},
+      borrow_name = #{borrowName,jdbcType=VARCHAR},
+      borrow_amount = #{borrowAmount,jdbcType=INTEGER},
+      borrow_use = #{borrowUse,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=DECIMAL},
+      duration_type = #{durationType,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=INTEGER},
+      repayment_type = #{repaymentType,jdbcType=VARCHAR},
+      borrow_user_id = #{borrowUserId,jdbcType=INTEGER},
+      period = #{period,jdbcType=INTEGER},
+      interest_day = #{interestDay,jdbcType=INTEGER},
+      repayment_date = #{repaymentDate,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      risk_money = #{riskMoney,jdbcType=DECIMAL},
+      borrow_fee = #{borrowFee,jdbcType=DECIMAL},
+      risk_level = #{riskLevel,jdbcType=VARCHAR},
+      service_fee = #{serviceFee,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

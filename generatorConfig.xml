@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<context id="testTables" targetRuntime="MyBatis3">
+	
+		<!-- JavaBean 实现 序列化 接口 -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin">
+		</plugin>
+		<!-- genenat entity时,生成toString -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <!-- 自定义物理分页  可生成支持Mysql数据的limit  不支持Oracle -->
+        <plugin type="org.mybatis.generator.plugins.page.PaginationPlugin" />
+        <!-- 自定义查询指定字段  -->
+        <plugin type="org.mybatis.generator.plugins.field.FieldsPlugin" />
+        <!-- 开启支持内存分页   可生成 支持内存分布的方法及参数  
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        -->
+        <!-- generate entity时，生成hashcode和equals方法
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		 -->
+		<!-- 此处是将Example改名为Criteria 当然 想改成什么都行~    -->      
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">  
+	        <property name="searchString" value="Example$" />
+	        <!-- 替换后
+	        <property name="replaceString" value="Criteria" />  
+	         -->
+	        <property name="replaceString" value="Query" />
+        </plugin>  
+		<!-- 此处是将UserMapper.xml改名为UserDao.xml 当然 想改成什么都行~ -->        
+        <plugin type="org.mybatis.generator.plugins.rename.RenameSqlMapperPlugin">  
+	        <property name="searchString" value="Mapper" />
+	        <property name="replaceString" value="Dao" />
+        </plugin>  
+         
+		<!-- 此处是将UserMapper改名为UserDao 接口 当然 想改成什么都行~  -->        
+        <plugin type="org.mybatis.generator.plugins.rename.RenameJavaMapperPlugin">  
+	        <property name="searchString" value="Mapper$" />
+	        <property name="replaceString" value="Dao" />
+        </plugin>  
+        
+ 
+		
+		<commentGenerator type="org.mybatis.generator.plugins.comment.MyCommentGenerator">
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 
+			<property name="suppressAllComments" value="true" />
+			-->
+		</commentGenerator>
+		
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://10.1.20.103:3306/sljr_jrxj" userId="sljr_jrxj"
+			password="jrxj@2017">
+		</jdbcConnection>
+		<!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:yycg" 
+			userId="yycg"
+			password="yycg">
+		</jdbcConnection> -->
+
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 
+			NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+
+		<!-- targetProject:生成PO类的位置 -->
+		<javaModelGenerator targetPackage="com.shanli.jf.model"
+			targetProject=".\src">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+        <!-- targetProject:mapper映射文件生成的位置 -->
+		<sqlMapGenerator targetPackage="com.shanli.jf.mapper" 
+			targetProject=".\src">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<!-- targetPackage：mapper接口生成的位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.shanli.jf.mapper" 
+			targetProject=".\src">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		
+		<!-- 指定数据库表 -->
+		<!-- 用户模块表  -->
+		<table schema="" tableName="area" domainObjectName="Area"/>
+		<table schema="" tableName="bank_dictionaries" domainObjectName="BankDictionaries"/>
+		<table schema="" tableName="banner" domainObjectName="Banner"/>
+		
+		<!-- 商品模块表 -->
+		<!-- <table schema="" tableName="area" domainObjectName="Area">
+			商品介绍 大字段映射
+			<columnOverride column="description" javaType="String" jdbcType="VARCHAR" />
+			包装清单 大字段映射
+			<columnOverride column="package_list" javaType="String" jdbcType="VARCHAR" />
+		</table> -->
+		<table schema="" tableName="channel_info" domainObjectName="ChannelInfo"/>
+		<table schema="" tableName="code" domainObjectName="Code"/>
+		<table schema="" tableName="contract_files" domainObjectName="ContractFiles"/>
+		<table schema="" tableName="contract_info" domainObjectName="ContractInfo"/>
+		<table schema="" tableName="face_log" domainObjectName="FaceLog"/>
+		<table schema="" tableName="loan_borrow" domainObjectName="LoanBorrow"/>
+		
+		<!-- 订单模块表 -->
+		<table schema="" tableName="loan_borrow_files" domainObjectName="LoanBorrowFiles">
+			<!-- 支付方式 0:到付 1:在线 2:邮局 3:公司转帐 -->
+			<!-- <columnOverride column="payment_way" javaType="Integer"/>
+			货到付款方式.1现金,2POS刷卡
+			<columnOverride column="payment_cash" javaType="Integer" />
+			送货时间
+			<columnOverride column="delivery" javaType="Integer"/>
+			支付状态 :0到付1待付款,2已付款,3待退款,4退款成功,5退款失败
+			<columnOverride column="is_paiy" javaType="Integer"/>
+			订单状态 0:提交订单 1:仓库配货 2:商品出库 3:等待收货 4:完成 5待退货 6已退货
+			<columnOverride column="state" javaType="Integer"/>
+			订单状态 默认Boolean
+			<columnOverride column="order_state" javaType="Integer"/> -->
+		</table>
+		<table schema="" tableName="loan_borrow_recover_plan" domainObjectName="LoanBorrowRecoverPlan"/>
+		<table schema="" tableName="loan_overdue_info" domainObjectName="LoanOverdueInfo"/>
+		<table schema="" tableName="loan_product" domainObjectName="LoanProduct"/>
+		<table schema="" tableName="loan_product_info" domainObjectName="LoanProductInfo"/>
+		<table schema="" tableName="real_user" domainObjectName="RealUser"/>
+		<table schema="" tableName="real_user_card" domainObjectName="RealUserCard"/>
+		<table schema="" tableName="recharge" domainObjectName="Recharge"/>
+		<table schema="" tableName="recharge_log" domainObjectName="RechargeLog"/>
+		<table schema="" tableName="sequence" domainObjectName="Sequence"/>
+		<table schema="" tableName="sys_andorra" domainObjectName="SysAndorra"/>
+		<table schema="" tableName="SYS_APP_USER" domainObjectName="SysAppUser"/>
+		<table schema="" tableName="sys_code_config_info" domainObjectName="SysCodeConfigInfo"/>
+		<table schema="" tableName="SYS_DICTIONARIES" domainObjectName="SysDictionaries"/>
+		<table schema="" tableName="sys_featured" domainObjectName="SysFeatured"/>
+		<table schema="" tableName="SYS_GL_QX" domainObjectName="SysGlQx"/>
+		<table schema="" tableName="sys_link" domainObjectName="SysLink"/>
+		<table schema="" tableName="SYS_MENU" domainObjectName="SysMenu"/>
+		<table schema="" tableName="sys_news" domainObjectName="SysNews"/>
+		<table schema="" tableName="sys_notice" domainObjectName="SysNotice"/>
+		<table schema="" tableName="sys_pay_log" domainObjectName="sys_pay_log"/>
+<table schema="" tableName="SYS_ROLE" domainObjectName="SysRole"/>	
+	<table schema="" tableName="SYS_USER" domainObjectName="SysUser"/>
+	<table schema="" tableName="SYS_USER_QX" domainObjectName="SysUserQx"/>
+	<table schema="" tableName="TB_LINE" domainObjectName="TbLine"/>
+<table schema="" tableName="TB_PICTURES" domainObjectName="TbPictures"/>
+		<table schema="" tableName="tend_log" domainObjectName="TendLog"/>
+		<table schema="" tableName="test" domainObjectName="Test"/>
+		<table schema="" tableName="tree" domainObjectName="Tree"/>
+		<table schema="" tableName="tuser" domainObjectName="TUser"/>
+		<table schema="" tableName="user" domainObjectName="User"/>
+		<table schema="" tableName="user_account" domainObjectName="UserAccount"/>
+		<table schema="" tableName="user_account_log" domainObjectName="UserAccountLog"/>
+		<table schema="" tableName="user_contacts_converse" domainObjectName="UserContactsConverse"/>
+		<table schema="" tableName="user_contacts_info" domainObjectName="UserContactsInfo"/>
+		<table schema="" tableName="user_fadada_contract_info" domainObjectName="UserFadadaContractInfo"/>
+		<table schema="" tableName="user_contacts_phone" domainObjectName="UserContractsPhone"/>
+		<table schema="" tableName="user_freeback_info" domainObjectName="UserFreebackInfo"/>
+		<table schema="" tableName="user_freeback_info_images" domainObjectName="UserFreebackInfoImages"/>
+		<table schema="" tableName="user_operation_infolog" domainObjectName="UserOperationInfolog"/>
+		<table schema="" tableName="user_id_card" domainObjectName="UserIdCard"/>
+		<table schema="" tableName="user_status" domainObjectName="UserStatus"/>
+		<!-- 指定数据库所有表  
+		<table schema="" tableName="%"/>
+		-->
+		
+		<!-- 有些表的字段需要指定java类型
+		 <table schema="" tableName="">
+			<columnOverride column="" javaType="" />
+		</table> -->
+	</context>
+</generatorConfiguration>

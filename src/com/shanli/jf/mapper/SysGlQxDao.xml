@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shanli.jf.mapper.SysGlQxDao" >
+  <resultMap id="BaseResultMap" type="com.shanli.jf.model.SysGlQx" >
+    <id column="GL_ID" property="glId" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="FX_QX" property="fxQx" jdbcType="INTEGER" />
+    <result column="FW_QX" property="fwQx" jdbcType="INTEGER" />
+    <result column="QX1" property="qx1" jdbcType="INTEGER" />
+    <result column="QX2" property="qx2" jdbcType="INTEGER" />
+    <result column="QX3" property="qx3" jdbcType="INTEGER" />
+    <result column="QX4" property="qx4" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      GL_ID, ROLE_ID, FX_QX, FW_QX, QX1, QX2, QX3, QX4
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shanli.jf.model.SysGlQxQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_GL_QX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    GL_ID,ROLE_ID,FX_QX,FW_QX,QX1,QX2,QX3,QX4
+    from SYS_GL_QX
+    where GL_ID = #{glId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_GL_QX
+    where GL_ID = #{glId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shanli.jf.model.SysGlQxQuery" >
+    delete from SYS_GL_QX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shanli.jf.model.SysGlQx" >
+    insert into SYS_GL_QX (GL_ID, ROLE_ID, FX_QX, 
+      FW_QX, QX1, QX2, QX3, 
+      QX4)
+    values (#{glId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{fxQx,jdbcType=INTEGER}, 
+      #{fwQx,jdbcType=INTEGER}, #{qx1,jdbcType=INTEGER}, #{qx2,jdbcType=INTEGER}, #{qx3,jdbcType=INTEGER}, 
+      #{qx4,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shanli.jf.model.SysGlQx" >
+    insert into SYS_GL_QX
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="glId != null" >
+        GL_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="fxQx != null" >
+        FX_QX,
+      </if>
+      <if test="fwQx != null" >
+        FW_QX,
+      </if>
+      <if test="qx1 != null" >
+        QX1,
+      </if>
+      <if test="qx2 != null" >
+        QX2,
+      </if>
+      <if test="qx3 != null" >
+        QX3,
+      </if>
+      <if test="qx4 != null" >
+        QX4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="glId != null" >
+        #{glId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="fxQx != null" >
+        #{fxQx,jdbcType=INTEGER},
+      </if>
+      <if test="fwQx != null" >
+        #{fwQx,jdbcType=INTEGER},
+      </if>
+      <if test="qx1 != null" >
+        #{qx1,jdbcType=INTEGER},
+      </if>
+      <if test="qx2 != null" >
+        #{qx2,jdbcType=INTEGER},
+      </if>
+      <if test="qx3 != null" >
+        #{qx3,jdbcType=INTEGER},
+      </if>
+      <if test="qx4 != null" >
+        #{qx4,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shanli.jf.model.SysGlQxQuery" resultType="java.lang.Integer" >
+    select count(*) from SYS_GL_QX
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_GL_QX
+    <set >
+      <if test="record.glId != null" >
+        GL_ID = #{record.glId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null" >
+        ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fxQx != null" >
+        FX_QX = #{record.fxQx,jdbcType=INTEGER},
+      </if>
+      <if test="record.fwQx != null" >
+        FW_QX = #{record.fwQx,jdbcType=INTEGER},
+      </if>
+      <if test="record.qx1 != null" >
+        QX1 = #{record.qx1,jdbcType=INTEGER},
+      </if>
+      <if test="record.qx2 != null" >
+        QX2 = #{record.qx2,jdbcType=INTEGER},
+      </if>
+      <if test="record.qx3 != null" >
+        QX3 = #{record.qx3,jdbcType=INTEGER},
+      </if>
+      <if test="record.qx4 != null" >
+        QX4 = #{record.qx4,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_GL_QX
+    set GL_ID = #{record.glId,jdbcType=VARCHAR},
+      ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
+      FX_QX = #{record.fxQx,jdbcType=INTEGER},
+      FW_QX = #{record.fwQx,jdbcType=INTEGER},
+      QX1 = #{record.qx1,jdbcType=INTEGER},
+      QX2 = #{record.qx2,jdbcType=INTEGER},
+      QX3 = #{record.qx3,jdbcType=INTEGER},
+      QX4 = #{record.qx4,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shanli.jf.model.SysGlQx" >
+    update SYS_GL_QX
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="fxQx != null" >
+        FX_QX = #{fxQx,jdbcType=INTEGER},
+      </if>
+      <if test="fwQx != null" >
+        FW_QX = #{fwQx,jdbcType=INTEGER},
+      </if>
+      <if test="qx1 != null" >
+        QX1 = #{qx1,jdbcType=INTEGER},
+      </if>
+      <if test="qx2 != null" >
+        QX2 = #{qx2,jdbcType=INTEGER},
+      </if>
+      <if test="qx3 != null" >
+        QX3 = #{qx3,jdbcType=INTEGER},
+      </if>
+      <if test="qx4 != null" >
+        QX4 = #{qx4,jdbcType=INTEGER},
+      </if>
+    </set>
+    where GL_ID = #{glId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shanli.jf.model.SysGlQx" >
+    update SYS_GL_QX
+    set ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      FX_QX = #{fxQx,jdbcType=INTEGER},
+      FW_QX = #{fwQx,jdbcType=INTEGER},
+      QX1 = #{qx1,jdbcType=INTEGER},
+      QX2 = #{qx2,jdbcType=INTEGER},
+      QX3 = #{qx3,jdbcType=INTEGER},
+      QX4 = #{qx4,jdbcType=INTEGER}
+    where GL_ID = #{glId,jdbcType=VARCHAR}
+  </update>
+</mapper>
